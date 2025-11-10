@@ -1,0 +1,363 @@
+import { Link, useNavigate } from 'react-router-dom'
+import { Heart, Settings, LogOut, Search, Send, Image, Video, DollarSign, Lock, Unlock, Paperclip } from 'lucide-react'
+import { useState } from 'react'
+import { useAuth } from '../context/AuthContext'
+import AccountSwitcher from '../components/AccountSwitcher'
+
+interface Message {
+  id: string
+  senderId: string
+  senderName: string
+  senderAvatar: string
+  content: string
+  isPaid: boolean
+  price?: number
+  isLocked: boolean
+  hasMedia: boolean
+  mediaType?: 'image' | 'video'
+  timestamp: string
+}
+
+interface Conversation {
+  id: string
+  userId: string
+  userName: string
+  userAvatar: string
+  lastMessage: string
+  timestamp: string
+  unread: number
+  isCreator: boolean
+}
+
+export default function Messages() {
+  const { logout } = useAuth()
+  const navigate = useNavigate()
+  const [selectedConversation, setSelectedConversation] = useState<string>('1')
+  const [messageText, setMessageText] = useState('')
+  const [isPaidMessage, setIsPaidMessage] = useState(false)
+  const [messagePrice, setMessagePrice] = useState('5.00')
+
+  const handleLogout = () => {
+    logout()
+    navigate('/login')
+  }
+
+  const conversations: Conversation[] = [
+    {
+      id: '1',
+      userId: 'user1',
+      userName: 'Sarah Johnson',
+      userAvatar: 'SJ',
+      lastMessage: 'Thanks for subscribing! 💕',
+      timestamp: '2m ago',
+      unread: 2,
+      isCreator: true
+    },
+    {
+      id: '2',
+      userId: 'user2',
+      userName: 'Mike Chen',
+      userAvatar: 'MC',
+      lastMessage: 'Check out my new content!',
+      timestamp: '1h ago',
+      unread: 0,
+      isCreator: true
+    },
+    {
+      id: '3',
+      userId: 'user3',
+      userName: 'Emma Davis',
+      userAvatar: 'ED',
+      lastMessage: 'Exclusive content just for you',
+      timestamp: '3h ago',
+      unread: 1,
+      isCreator: true
+    }
+  ]
+
+  const messages: Message[] = [
+    {
+      id: '1',
+      senderId: 'user1',
+      senderName: 'Sarah Johnson',
+      senderAvatar: 'SJ',
+      content: 'Hey! Thanks so much for subscribing to my content! 💕',
+      isPaid: false,
+      isLocked: false,
+      hasMedia: false,
+      timestamp: '10:30 AM'
+    },
+    {
+      id: '2',
+      senderId: 'me',
+      senderName: 'You',
+      senderAvatar: 'ME',
+      content: 'Love your content! Keep it up!',
+      isPaid: false,
+      isLocked: false,
+      hasMedia: false,
+      timestamp: '10:32 AM'
+    },
+    {
+      id: '3',
+      senderId: 'user1',
+      senderName: 'Sarah Johnson',
+      senderAvatar: 'SJ',
+      content: 'I have some exclusive content just for you! 🔥',
+      isPaid: true,
+      price: 10.00,
+      isLocked: true,
+      hasMedia: true,
+      mediaType: 'image',
+      timestamp: '10:35 AM'
+    },
+    {
+      id: '4',
+      senderId: 'user1',
+      senderName: 'Sarah Johnson',
+      senderAvatar: 'SJ',
+      content: 'Here\'s a preview of what I\'m working on today!',
+      isPaid: false,
+      isLocked: false,
+      hasMedia: true,
+      mediaType: 'image',
+      timestamp: '11:20 AM'
+    }
+  ]
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Navigation */}
+      <nav className="bg-white border-b border-gray-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <Link to="/" className="flex items-center">
+              <Heart className="h-8 w-8 text-pink-600" />
+              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+                FanVault
+              </span>
+            </Link>
+            <div className="flex items-center space-x-4">
+              <Link to="/settings" className="text-gray-700 hover:text-gray-900 p-2">
+                <Settings className="h-6 w-6" />
+              </Link>
+              <button onClick={handleLogout} className="text-gray-700 hover:text-gray-900 p-2">
+                <LogOut className="h-6 w-6" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="bg-white rounded-xl shadow-sm overflow-hidden" style={{ height: 'calc(100vh - 200px)' }}>
+          <div className="grid grid-cols-12 h-full">
+            {/* Conversations List */}
+            <div className="col-span-4 border-r border-gray-200 flex flex-col">
+              <div className="p-4 border-b border-gray-200">
+                <h2 className="text-xl font-bold mb-4">Messages</h2>
+                <div className="relative">
+                  <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
+                  <input
+                    type="text"
+                    placeholder="Search conversations..."
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  />
+                </div>
+              </div>
+              <div className="flex-1 overflow-y-auto">
+                {conversations.map((conv) => (
+                  <button
+                    key={conv.id}
+                    onClick={() => setSelectedConversation(conv.id)}
+                    className={`w-full p-4 flex items-center space-x-3 hover:bg-gray-50 transition ${
+                      selectedConversation === conv.id ? 'bg-pink-50 border-l-4 border-pink-600' : ''
+                    }`}
+                  >
+                    <div className="relative">
+                      <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                        {conv.userAvatar}
+                      </div>
+                      {conv.unread > 0 && (
+                        <div className="absolute -top-1 -right-1 w-5 h-5 bg-pink-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
+                          {conv.unread}
+                        </div>
+                      )}
+                    </div>
+                    <div className="flex-1 text-left">
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-semibold text-gray-900">{conv.userName}</span>
+                        <span className="text-xs text-gray-500">{conv.timestamp}</span>
+                      </div>
+                      <p className="text-sm text-gray-600 truncate">{conv.lastMessage}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Message Thread */}
+            <div className="col-span-8 flex flex-col">
+              {/* Thread Header */}
+              <div className="p-4 border-b border-gray-200 flex items-center justify-between">
+                <div className="flex items-center space-x-3">
+                  <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                    SJ
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-gray-900">Sarah Johnson</h3>
+                    <p className="text-sm text-gray-500">@sarahjfit • Active now</p>
+                  </div>
+                </div>
+                <Link
+                  to="/creator/sarahjfit"
+                  className="text-pink-600 hover:text-pink-700 font-medium text-sm"
+                >
+                  View Profile
+                </Link>
+              </div>
+
+              {/* Messages */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-4">
+                {messages.map((message) => (
+                  <MessageBubble key={message.id} message={message} />
+                ))}
+              </div>
+
+              {/* Message Composer */}
+              <div className="p-4 border-t border-gray-200">
+                {/* Paid Message Toggle (for creators) */}
+                <div className="mb-3 flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <button
+                      onClick={() => setIsPaidMessage(!isPaidMessage)}
+                      className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-sm font-medium transition ${
+                        isPaidMessage
+                          ? 'bg-pink-100 text-pink-700 border border-pink-300'
+                          : 'bg-gray-100 text-gray-700 border border-gray-300'
+                      }`}
+                    >
+                      {isPaidMessage ? (
+                        <>
+                          <Lock className="h-4 w-4" />
+                          <span>Paid Message</span>
+                        </>
+                      ) : (
+                        <>
+                          <Unlock className="h-4 w-4" />
+                          <span>Free Message</span>
+                        </>
+                      )}
+                    </button>
+                    {isPaidMessage && (
+                      <div className="flex items-center space-x-2">
+                        <DollarSign className="h-4 w-4 text-gray-500" />
+                        <input
+                          type="number"
+                          value={messagePrice}
+                          onChange={(e) => setMessagePrice(e.target.value)}
+                          className="w-20 px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
+                          step="0.50"
+                          min="0.50"
+                        />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <button className="p-2 text-gray-600 hover:text-pink-600 transition">
+                      <Image className="h-5 w-5" />
+                    </button>
+                    <button className="p-2 text-gray-600 hover:text-pink-600 transition">
+                      <Video className="h-5 w-5" />
+                    </button>
+                    <button className="p-2 text-gray-600 hover:text-pink-600 transition">
+                      <Paperclip className="h-5 w-5" />
+                    </button>
+                  </div>
+                </div>
+
+                {/* Message Input */}
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="text"
+                    value={messageText}
+                    onChange={(e) => setMessageText(e.target.value)}
+                    placeholder={isPaidMessage ? 'Type a paid message...' : 'Type a message...'}
+                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
+                  />
+                  <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-3 rounded-lg hover:shadow-lg transition">
+                    <Send className="h-5 w-5" />
+                  </button>
+                </div>
+                {isPaidMessage && (
+                  <p className="text-xs text-gray-500 mt-2">
+                    This message will be locked until the recipient pays £{messagePrice}
+                  </p>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <AccountSwitcher />
+    </div>
+  )
+}
+
+interface MessageBubbleProps {
+  message: Message
+}
+
+function MessageBubble({ message }: MessageBubbleProps) {
+  const isMe = message.senderId === 'me'
+
+  return (
+    <div className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
+      <div className={`max-w-md ${isMe ? 'order-2' : 'order-1'}`}>
+        {!isMe && (
+          <p className="text-xs text-gray-500 mb-1 ml-1">{message.senderName}</p>
+        )}
+        <div
+          className={`rounded-2xl px-4 py-3 ${
+            isMe
+              ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white'
+              : 'bg-gray-100 text-gray-900'
+          }`}
+        >
+          {message.isPaid && message.isLocked ? (
+            <div className="text-center py-4">
+              <Lock className="h-8 w-8 mx-auto mb-2 opacity-70" />
+              <p className="font-semibold mb-1">Locked Content</p>
+              <p className="text-sm opacity-90 mb-3">
+                {message.hasMedia && `${message.mediaType === 'image' ? 'Photo' : 'Video'} + Message`}
+              </p>
+              <button className="bg-white text-pink-600 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-50 transition">
+                Unlock for £{message.price?.toFixed(2)}
+              </button>
+            </div>
+          ) : (
+            <>
+              {message.hasMedia && !message.isLocked && (
+                <div className="mb-2 rounded-lg overflow-hidden bg-gradient-to-br from-pink-100 to-purple-100 aspect-video flex items-center justify-center">
+                  {message.mediaType === 'image' ? (
+                    <Image className="h-12 w-12 text-pink-600" />
+                  ) : (
+                    <Video className="h-12 w-12 text-purple-600" />
+                  )}
+                </div>
+              )}
+              <p>{message.content}</p>
+              {message.isPaid && !message.isLocked && (
+                <div className="flex items-center space-x-1 mt-2 text-xs opacity-75">
+                  <DollarSign className="h-3 w-3" />
+                  <span>Paid content</span>
+                </div>
+              )}
+            </>
+          )}
+        </div>
+        <p className="text-xs text-gray-500 mt-1 ml-1">{message.timestamp}</p>
+      </div>
+    </div>
+  )
+}
