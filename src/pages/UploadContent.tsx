@@ -8,7 +8,7 @@ type ContentType = 'image' | 'video' | 'text'
 type PostDestination = 'feed' | 'message'
 
 export default function UploadContent() {
-  const { user, logout } = useAuth()
+  const { logout } = useAuth()
   const navigate = useNavigate()
   const fileInputRef = useRef<HTMLInputElement>(null)
   

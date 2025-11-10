@@ -49,7 +49,7 @@ const DEMO_ACCOUNTS = {
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string, _password: string): Promise<boolean> => {
     // Demo login - accept any password
     if (email === 'sarah@fanvault.com' || email === 'creator') {
       setUser(DEMO_ACCOUNTS.creator)

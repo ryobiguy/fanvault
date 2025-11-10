@@ -267,7 +267,7 @@ interface SuggestedCreatorProps {
   subscribers: string
 }
 
-function SuggestedCreator({ name, username, avatar, subscribers }: SuggestedCreatorProps) {
+function SuggestedCreator({ name, avatar, subscribers }: SuggestedCreatorProps) {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
