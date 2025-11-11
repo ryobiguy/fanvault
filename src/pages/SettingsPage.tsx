@@ -516,6 +516,6 @@ function SecuritySettings() {
           </div>
         </div>
       </div>
-    </DashboardLayout>
+    </div>
   )
 }
