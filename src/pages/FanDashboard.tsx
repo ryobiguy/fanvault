@@ -1,63 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Heart, Search, Bell, Settings, LogOut, Star, Image, Video, MessageCircle } from 'lucide-react'
-import { useAuth } from '../context/AuthContext'
-import AccountSwitcher from '../components/AccountSwitcher'
+import { Link } from 'react-router-dom'
+import { Star, Image, Video, Heart, MessageCircle } from 'lucide-react'
+import DashboardLayout from '../components/DashboardLayout'
 
 export default function FanDashboard() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
-
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200 sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center">
-              <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                FanVault
-              </span>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link to="/explore" className="text-gray-700 hover:text-gray-900 font-medium hidden md:block">
-                Explore
-              </Link>
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search creators..."
-                  className="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 w-64"
-                />
-                <Search className="absolute left-3 top-2.5 h-5 w-5 text-gray-400" />
-              </div>
-              <Link to="/messages" className="text-gray-700 hover:text-gray-900 p-2 relative">
-                <MessageCircle className="h-6 w-6" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-pink-600 rounded-full"></span>
-              </Link>
-              <button className="text-gray-700 hover:text-gray-900 p-2 relative">
-                <Bell className="h-6 w-6" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-pink-600 rounded-full"></span>
-              </button>
-              <Link to="/settings" className="text-gray-700 hover:text-gray-900 p-2">
-                <Settings className="h-6 w-6" />
-              </Link>
-              <button onClick={handleLogout} className="text-gray-700 hover:text-gray-900 p-2">
-                <LogOut className="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <DashboardLayout>
+      <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, {user?.name || 'Fan'}!</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">Your Feed</h1>
           <p className="text-gray-600">Latest content from creators you follow</p>
         </div>
 
@@ -156,8 +107,7 @@ export default function FanDashboard() {
           </div>
         </div>
       </div>
-      <AccountSwitcher />
-    </div>
+    </DashboardLayout>
   )
 }
 

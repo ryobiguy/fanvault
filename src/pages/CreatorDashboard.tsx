@@ -1,51 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Heart, DollarSign, Users, Eye, TrendingUp, Upload, Settings, LogOut, Image, Video, FileText, MessageCircle } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import { DollarSign, Users, Eye, TrendingUp, Upload, Image, Video, FileText, MessageCircle } from 'lucide-react'
 import { useAuth } from '../context/AuthContext'
-import AccountSwitcher from '../components/AccountSwitcher'
+import DashboardLayout from '../components/DashboardLayout'
 
 export default function CreatorDashboard() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
+  const { user } = useAuth()
 
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center">
-              <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                FanVault
-              </span>
-            </Link>
-            <div className="flex items-center space-x-6">
-              <Link to="/explore" className="text-gray-700 hover:text-gray-900 font-medium">
-                Explore
-              </Link>
-              <Link to="/profile/edit" className="text-gray-700 hover:text-gray-900 font-medium">
-                Edit Profile
-              </Link>
-              <Link to="/messages" className="text-gray-700 hover:text-gray-900 p-2 relative">
-                <MessageCircle className="h-6 w-6" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-pink-600 rounded-full"></span>
-              </Link>
-              <Link to="/settings" className="text-gray-700 hover:text-gray-900 p-2">
-                <Settings className="h-6 w-6" />
-              </Link>
-              <button onClick={handleLogout} className="text-gray-700 hover:text-gray-900 p-2">
-                <LogOut className="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <DashboardLayout>
+      <div>
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome back, {user?.name || 'Creator'}!</h1>
@@ -145,8 +108,7 @@ export default function CreatorDashboard() {
           </div>
         </div>
       </div>
-      <AccountSwitcher />
-    </div>
+    </DashboardLayout>
   )
 }
 
