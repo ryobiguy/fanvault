@@ -1,20 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Heart, LogOut, User, Lock, Bell, CreditCard, Shield, Eye, Mail, Smartphone, Globe, Trash2 } from 'lucide-react'
+import { User, Lock, Bell, CreditCard, Shield, Eye, Mail, Smartphone, Globe, Trash2 } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
-import AccountSwitcher from '../components/AccountSwitcher'
+import DashboardLayout from '../components/DashboardLayout'
 
 type SettingsTab = 'account' | 'privacy' | 'notifications' | 'billing' | 'security'
 
 export default function SettingsPage() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState<SettingsTab>('account')
-
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
 
   const tabs = [
     { id: 'account' as SettingsTab, name: 'Account', icon: User },
@@ -25,25 +17,8 @@ export default function SettingsPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to={user?.type === 'creator' ? '/creator/dashboard' : '/fan/dashboard'} className="flex items-center">
-              <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                FanVault
-              </span>
-            </Link>
-            <button onClick={handleLogout} className="text-gray-700 hover:text-gray-900 p-2">
-              <LogOut className="h-6 w-6" />
-            </button>
-          </div>
-        </div>
-      </nav>
-
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <DashboardLayout>
+      <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Settings</h1>
@@ -79,13 +54,12 @@ export default function SettingsPage() {
             {activeTab === 'account' && <AccountSettings />}
             {activeTab === 'privacy' && <PrivacySettings />}
             {activeTab === 'notifications' && <NotificationSettings />}
-            {activeTab === 'billing' && <BillingSettings user={user} />}
+            {activeTab === 'billing' && <BillingSettings />}
             {activeTab === 'security' && <SecuritySettings />}
           </div>
         </div>
       </div>
-      <AccountSwitcher />
-    </div>
+    </DashboardLayout>
   )
 }
 
@@ -380,7 +354,9 @@ function NotificationSettings() {
   )
 }
 
-function BillingSettings({ user }: { user: any }) {
+function BillingSettings() {
+  const { user } = useAuth()
+  
   return (
     <div className="space-y-6">
       {user?.type === 'creator' && (
@@ -540,6 +516,6 @@ function SecuritySettings() {
           </div>
         </div>
       </div>
-    </div>
+    </DashboardLayout>
   )
 }

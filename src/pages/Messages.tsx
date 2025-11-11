@@ -1,8 +1,6 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Heart, Settings, LogOut, Search, Send, Image, Video, DollarSign, Lock, Unlock, Paperclip } from 'lucide-react'
+import { Search, Send, Image, Video, DollarSign, Lock, Unlock, Paperclip } from 'lucide-react'
 import { useState } from 'react'
-import { useAuth } from '../context/AuthContext'
-import AccountSwitcher from '../components/AccountSwitcher'
+import DashboardLayout from '../components/DashboardLayout'
 
 interface Message {
   id: string
@@ -30,17 +28,10 @@ interface Conversation {
 }
 
 export default function Messages() {
-  const { logout } = useAuth()
-  const navigate = useNavigate()
   const [selectedConversation, setSelectedConversation] = useState<string>('1')
   const [messageText, setMessageText] = useState('')
   const [isPaidMessage, setIsPaidMessage] = useState(false)
   const [messagePrice, setMessagePrice] = useState('5.00')
-
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
 
   const conversations: Conversation[] = [
     {
@@ -126,30 +117,8 @@ export default function Messages() {
   ]
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/" className="flex items-center">
-              <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                FanVault
-              </span>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link to="/settings" className="text-gray-700 hover:text-gray-900 p-2">
-                <Settings className="h-6 w-6" />
-              </Link>
-              <button onClick={handleLogout} className="text-gray-700 hover:text-gray-900 p-2">
-                <LogOut className="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <DashboardLayout>
+      <div className="max-w-7xl mx-auto">
         <div className="bg-white rounded-xl shadow-sm overflow-hidden" style={{ height: 'calc(100vh - 200px)' }}>
           <div className="grid grid-cols-12 h-full">
             {/* Conversations List */}
@@ -299,8 +268,7 @@ export default function Messages() {
           </div>
         </div>
       </div>
-      <AccountSwitcher />
-    </div>
+    </DashboardLayout>
   )
 }
 

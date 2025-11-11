@@ -1,12 +1,10 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { Heart, Settings, LogOut, Camera, Save, X } from 'lucide-react'
+import { Camera, Save, X } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
-import AccountSwitcher from '../components/AccountSwitcher'
+import DashboardLayout from '../components/DashboardLayout'
 
 export default function EditProfile() {
-  const { user, logout } = useAuth()
-  const navigate = useNavigate()
+  const { user } = useAuth()
 
   const [name, setName] = useState(user?.name || '')
   const [username, setUsername] = useState(user?.username || '')
@@ -23,11 +21,6 @@ export default function EditProfile() {
   const [premiumDescription, setPremiumDescription] = useState('Everything in Basic + exclusive content')
   const [vipDescription, setVipDescription] = useState('Everything + 1-on-1 messaging')
 
-  const handleLogout = () => {
-    logout()
-    navigate('/login')
-  }
-
   const handleSave = () => {
     // This would save to backend
     console.log({
@@ -43,34 +36,11 @@ export default function EditProfile() {
       }
     })
     alert('Profile updated successfully! (Demo)')
-    navigate('/creator/dashboard')
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navigation */}
-      <nav className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <Link to="/creator/dashboard" className="flex items-center">
-              <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                FanVault
-              </span>
-            </Link>
-            <div className="flex items-center space-x-4">
-              <Link to="/settings" className="text-gray-700 hover:text-gray-900 p-2">
-                <Settings className="h-6 w-6" />
-              </Link>
-              <button onClick={handleLogout} className="text-gray-700 hover:text-gray-900 p-2">
-                <LogOut className="h-6 w-6" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </nav>
-
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <DashboardLayout>
+      <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Edit Profile</h1>
@@ -280,7 +250,6 @@ export default function EditProfile() {
           </div>
         </div>
       </div>
-      <AccountSwitcher />
-    </div>
+    </DashboardLayout>
   )
 }
