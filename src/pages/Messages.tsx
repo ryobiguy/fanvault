@@ -66,55 +66,111 @@ export default function Messages() {
     }
   ]
 
-  const messages: Message[] = [
-    {
-      id: '1',
-      senderId: 'user1',
-      senderName: 'Sarah Johnson',
-      senderAvatar: 'SJ',
-      content: 'Hey! Thanks so much for subscribing to my content! 💕',
-      isPaid: false,
-      isLocked: false,
-      hasMedia: false,
-      timestamp: '10:30 AM'
-    },
-    {
-      id: '2',
-      senderId: 'me',
-      senderName: 'You',
-      senderAvatar: 'ME',
-      content: 'Love your content! Keep it up!',
-      isPaid: false,
-      isLocked: false,
-      hasMedia: false,
-      timestamp: '10:32 AM'
-    },
-    {
-      id: '3',
-      senderId: 'user1',
-      senderName: 'Sarah Johnson',
-      senderAvatar: 'SJ',
-      content: 'I have some exclusive content just for you! 🔥',
-      isPaid: true,
-      price: 10.00,
-      isLocked: true,
-      hasMedia: true,
-      mediaType: 'image',
-      timestamp: '10:35 AM'
-    },
-    {
-      id: '4',
-      senderId: 'user1',
-      senderName: 'Sarah Johnson',
-      senderAvatar: 'SJ',
-      content: 'Here\'s a preview of what I\'m working on today!',
-      isPaid: false,
-      isLocked: false,
-      hasMedia: true,
-      mediaType: 'image',
-      timestamp: '11:20 AM'
-    }
-  ]
+  // Messages organized by conversation
+  const allMessages: Record<string, Message[]> = {
+    '1': [
+      {
+        id: '1',
+        senderId: 'user1',
+        senderName: 'Sarah Johnson',
+        senderAvatar: 'SJ',
+        content: 'Hey! Thanks so much for subscribing to my content! 💕',
+        isPaid: false,
+        isLocked: false,
+        hasMedia: false,
+        timestamp: '10:30 AM'
+      },
+      {
+        id: '2',
+        senderId: 'me',
+        senderName: 'You',
+        senderAvatar: 'ME',
+        content: 'Love your content! Keep it up!',
+        isPaid: false,
+        isLocked: false,
+        hasMedia: false,
+        timestamp: '10:32 AM'
+      },
+      {
+        id: '3',
+        senderId: 'user1',
+        senderName: 'Sarah Johnson',
+        senderAvatar: 'SJ',
+        content: 'I have some exclusive content just for you! 🔥',
+        isPaid: true,
+        price: 10.00,
+        isLocked: true,
+        hasMedia: true,
+        mediaType: 'image',
+        timestamp: '10:35 AM'
+      },
+      {
+        id: '4',
+        senderId: 'user1',
+        senderName: 'Sarah Johnson',
+        senderAvatar: 'SJ',
+        content: 'Here\'s a preview of what I\'m working on today!',
+        isPaid: false,
+        isLocked: false,
+        hasMedia: true,
+        mediaType: 'image',
+        timestamp: '11:20 AM'
+      }
+    ],
+    '2': [
+      {
+        id: '5',
+        senderId: 'user2',
+        senderName: 'Mike Chen',
+        senderAvatar: 'MC',
+        content: 'Check out my new cooking video! 🍳',
+        isPaid: false,
+        isLocked: false,
+        hasMedia: false,
+        timestamp: '9:15 AM'
+      },
+      {
+        id: '6',
+        senderId: 'me',
+        senderName: 'You',
+        senderAvatar: 'ME',
+        content: 'Looks amazing! Can\'t wait to try it',
+        isPaid: false,
+        isLocked: false,
+        hasMedia: false,
+        timestamp: '9:20 AM'
+      }
+    ],
+    '3': [
+      {
+        id: '7',
+        senderId: 'user3',
+        senderName: 'Emma Davis',
+        senderAvatar: 'ED',
+        content: 'Exclusive photoshoot preview! ✨',
+        isPaid: true,
+        price: 15.00,
+        isLocked: true,
+        hasMedia: true,
+        mediaType: 'image',
+        timestamp: '8:45 AM'
+      },
+      {
+        id: '8',
+        senderId: 'me',
+        senderName: 'You',
+        senderAvatar: 'ME',
+        content: 'Interested! How do I unlock?',
+        isPaid: false,
+        isLocked: false,
+        hasMedia: false,
+        timestamp: '8:50 AM'
+      }
+    ]
+  }
+
+  const messages = allMessages[selectedConversation] || []
+  const selectedConv = conversations.find(c => c.id === selectedConversation)
 
   return (
     <DashboardLayout>
@@ -171,11 +227,11 @@ export default function Messages() {
               <div className="p-4 border-b border-gray-200 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
                   <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
-                    SJ
+                    {selectedConv?.userAvatar}
                   </div>
                   <div>
-                    <h3 className="font-semibold text-gray-900">Sarah Johnson</h3>
-                    <p className="text-sm text-gray-500">@sarahjfit • Active now</p>
+                    <h3 className="font-semibold text-gray-900">{selectedConv?.userName}</h3>
+                    <p className="text-sm text-gray-500">Active now</p>
                   </div>
                 </div>
                 <button
