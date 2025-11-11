@@ -26,7 +26,7 @@ export default function LandingPage() {
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
               <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
                 DirectFans
               </span>
             </div>
@@ -45,7 +45,7 @@ export default function LandingPage() {
               </Link>
               <Link
                 to="/signup"
-                className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition transform hover:scale-105"
+                className="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition transform hover:scale-105"
               >
                 Sign Up
               </Link>
@@ -60,7 +60,7 @@ export default function LandingPage() {
           <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">
             Keep 100% of Your Earnings.
             <br />
-            <span className="bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
               Only £10/Month to Start.
             </span>
           </h1>
@@ -71,7 +71,7 @@ export default function LandingPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               to="/signup?type=creator"
-              className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl transition transform hover:scale-105"
+              className="bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl transition transform hover:scale-105"
             >
               Start Creating
             </Link>
@@ -123,7 +123,7 @@ export default function LandingPage() {
       </section>
 
       {/* Stats Section */}
-      <section className="bg-gradient-to-r from-pink-600 to-purple-600 py-16">
+      <section className="bg-gradient-to-r from-pink-500 to-orange-500 py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8 text-center text-white">
             <div>
@@ -144,14 +144,14 @@ export default function LandingPage() {
 
       {/* CTA Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-3xl p-12 text-center">
+        <div className="bg-gradient-to-r from-pink-100 to-orange-100 rounded-3xl p-12 text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Keep 100% of Your Earnings?</h2>
           <p className="text-xl text-gray-700 mb-8">
             Join DirectFans for just £10/month. No commissions. No hidden fees. Just you and your fans.
           </p>
           <Link
             to="/signup"
-            className="inline-block bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl transition transform hover:scale-105"
+            className="inline-block bg-gradient-to-r from-pink-500 to-orange-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:shadow-xl transition transform hover:scale-105"
           >
             Get Started Free
           </Link>

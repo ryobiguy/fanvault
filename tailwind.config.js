@@ -8,16 +8,20 @@ export default {
     extend: {
       colors: {
         primary: {
-          50: '#fef2f2',
-          100: '#fee2e2',
-          200: '#fecaca',
-          300: '#fca5a5',
-          400: '#f87171',
-          500: '#ef4444',
-          600: '#dc2626',
-          700: '#b91c1c',
-          800: '#991b1b',
-          900: '#7f1d1d',
+          50: '#fef5ff',
+          100: '#fde8ff',
+          200: '#fcd1ff',
+          300: '#f9a8ff',
+          400: '#f570ff',
+          500: '#e838f7',
+          600: '#d016d8',
+          700: '#ad0fb3',
+          800: '#8f0d92',
+          900: '#760f77',
+        },
+        brand: {
+          pink: '#d946d8',      // Magenta/Pink from logo
+          orange: '#ff6b47',    // Coral/Orange from logo
         },
       },
     },

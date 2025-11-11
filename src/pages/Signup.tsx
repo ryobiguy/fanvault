@@ -11,7 +11,7 @@ export default function Signup() {
         {/* Logo */}
         <Link to="/" className="flex items-center justify-center mb-8">
           <Heart className="h-12 w-12 text-pink-600" />
-          <span className="ml-2 text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+          <span className="ml-2 text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
             DirectFans
           </span>
         </Link>
@@ -21,7 +21,7 @@ export default function Signup() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Create Account</h1>
           <p className="text-gray-600 text-center mb-8">Join thousands of creators and fans</p>
           {accountType === 'creator' && (
-            <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-lg p-4 mb-6">
+            <div className="bg-gradient-to-r from-pink-50 to-orange-50 border border-pink-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-gray-700 text-center">
                 <span className="font-semibold text-pink-600">Creator Subscription:</span> £10/month • Keep 100% of your earnings
               </p>
@@ -172,7 +172,7 @@ export default function Signup() {
             {/* Sign Up Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition transform hover:scale-105"
+              className="w-full bg-gradient-to-r from-pink-500 to-orange-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition transform hover:scale-105"
             >
               Create Account
             </button>
