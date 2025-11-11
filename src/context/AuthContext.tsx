@@ -1,11 +1,12 @@
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
+import { authService } from '../services/authService'
 
 export interface User {
   id: string
   name: string
   email: string
   username: string
-  avatar: string
+  avatar?: string
   type: 'creator' | 'fan'
   bio?: string
   subscriptionPrice?: number
@@ -48,30 +49,66 @@ const DEMO_ACCOUNTS = {
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
 
-  const login = async (email: string, _password: string): Promise<boolean> => {
-    // Demo login - accept any password
-    if (email === 'sarah@directfans.com' || email === 'creator') {
-      setUser(DEMO_ACCOUNTS.creator)
-      localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.creator))
-      return true
-    } else if (email === 'john@example.com' || email === 'fan') {
-      setUser(DEMO_ACCOUNTS.fan)
-      localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.fan))
-      return true
+  // Check for existing session on mount
+  useEffect(() => {
+    const storedUser = authService.getStoredUser()
+    const token = authService.getToken()
+    
+    if (storedUser && token) {
+      // Verify token is still valid by fetching current user
+      authService.getCurrentUser()
+        .then(user => setUser(user))
+        .catch(() => {
+          // Token invalid, clear storage
+          authService.logout()
+        })
+        .finally(() => setLoading(false))
+    } else {
+      setLoading(false)
     }
-    return false
+  }, [])
+
+  const login = async (email: string, password: string): Promise<boolean> => {
+    try {
+      // Try real API login first
+      const { user: loggedInUser } = await authService.login({ email, password })
+      setUser(loggedInUser)
+      return true
+    } catch (error) {
+      // Fallback to demo accounts for development
+      if (email === 'sarah@directfans.com' || email === 'creator') {
+        setUser(DEMO_ACCOUNTS.creator)
+        localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.creator))
+        return true
+      } else if (email === 'john@example.com' || email === 'fan') {
+        setUser(DEMO_ACCOUNTS.fan)
+        localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.fan))
+        return true
+      }
+      return false
+    }
   }
 
   const logout = () => {
+    authService.logout()
     setUser(null)
-    localStorage.removeItem('directfans_user')
   }
 
   const switchAccount = (accountType: 'creator' | 'fan') => {
     const account = DEMO_ACCOUNTS[accountType]
     setUser(account)
     localStorage.setItem('directfans_user', JSON.stringify(account))
+  }
+
+  if (loading) {
+    return <div className="min-h-screen flex items-center justify-center">
+      <div className="text-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-pink-600 mx-auto"></div>
+        <p className="mt-4 text-gray-600">Loading...</p>
+      </div>
+    </div>
   }
 
   return (
