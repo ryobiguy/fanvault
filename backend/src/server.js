@@ -3,6 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import rateLimit from 'express-rate-limit';
+import pool from './config/database.js';
 
 // Import routes
 import authRoutes from './routes/auth.js';
@@ -93,8 +94,6 @@ app.use((req, res) => {
 });
 
 // Test database connection before starting server
-import pool from './config/database.js';
-
 async function startServer() {
   try {
     // Test database connection
