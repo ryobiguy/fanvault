@@ -1,7 +1,7 @@
 {
-  "name": "fanvault-backend",
+  "name": "directfans-backend",
   "version": "1.0.0",
-  "description": "FanVault Backend API - Content subscription platform",
+  "description": "DirectFans Backend API - Content subscription platform",
   "main": "src/server.js",
   "type": "module",
   "scripts": {
