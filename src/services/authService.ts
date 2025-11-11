@@ -8,9 +8,9 @@ export interface LoginCredentials {
 export interface RegisterData {
   email: string
   password: string
-  name: string
+  displayName: string
   username: string
-  type: 'creator' | 'fan'
+  userType: 'creator' | 'fan'
 }
 
 export interface User {

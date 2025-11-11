@@ -34,8 +34,8 @@ export default function Signup() {
       return
     }
 
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters')
+    if (password.length < 8) {
+      setError('Password must be at least 8 characters')
       return
     }
 
@@ -46,9 +46,9 @@ export default function Signup() {
       await authService.register({
         email,
         password,
-        name,
+        displayName: name,
         username: username || email.split('@')[0],
-        type: accountType
+        userType: accountType
       })
 
       // Navigate to appropriate dashboard
@@ -206,7 +206,7 @@ export default function Signup() {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  minLength={6}
+                  minLength={8}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
@@ -226,7 +226,7 @@ export default function Signup() {
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
                   required
-                  minLength={6}
+                  minLength={8}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
