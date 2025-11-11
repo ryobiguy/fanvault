@@ -1,9 +1,68 @@
-import { Link } from 'react-router-dom'
-import { Mail, Lock, User, Briefcase, Users } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
+import { Mail, Lock, User, Briefcase, Users, AlertCircle } from 'lucide-react'
 import { useState } from 'react'
+import { authService } from '../services/authService'
 
 export default function Signup() {
   const [accountType, setAccountType] = useState<'creator' | 'fan'>('fan')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+  const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError('')
+
+    // Validation
+    if (!name || !email || !password) {
+      setError('Please fill in all fields')
+      return
+    }
+
+    if (accountType === 'creator' && !username) {
+      setError('Username is required for creators')
+      return
+    }
+
+    if (password !== confirmPassword) {
+      setError('Passwords do not match')
+      return
+    }
+
+    if (password.length < 6) {
+      setError('Password must be at least 6 characters')
+      return
+    }
+
+    setLoading(true)
+
+    try {
+      // Register user
+      await authService.register({
+        email,
+        password,
+        name,
+        username: username || email.split('@')[0],
+        type: accountType
+      })
+
+      // Navigate to appropriate dashboard
+      if (accountType === 'creator') {
+        navigate('/creator/dashboard')
+      } else {
+        navigate('/fan/dashboard')
+      }
+    } catch (err: any) {
+      setError(err.message || 'Failed to create account')
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 flex items-center justify-center px-4 py-12">
@@ -16,7 +75,15 @@ export default function Signup() {
         {/* Signup Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2 text-center">Create Account</h1>
-          <p className="text-gray-600 text-center mb-8">Join thousands of creators and fans</p>
+          <p className="text-gray-600 text-center mb-4">Join thousands of creators and fans</p>
+          
+          {error && (
+            <div className="bg-red-50 border border-red-200 rounded-lg p-3 flex items-center space-x-2 text-red-700 mb-4">
+              <AlertCircle className="h-5 w-5 flex-shrink-0" />
+              <p className="text-sm">{error}</p>
+            </div>
+          )}
+
           {accountType === 'creator' && (
             <div className="bg-gradient-to-r from-pink-50 to-orange-50 border border-pink-200 rounded-lg p-4 mb-6">
               <p className="text-sm text-gray-700 text-center">
@@ -65,7 +132,7 @@ export default function Signup() {
             </button>
           </div>
 
-          <form className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             {/* Full Name */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
@@ -76,7 +143,10 @@ export default function Signup() {
                 <input
                   id="name"
                   type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   placeholder="John Doe"
+                  required
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
@@ -92,7 +162,10 @@ export default function Signup() {
                 <input
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@example.com"
+                  required
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
@@ -109,7 +182,10 @@ export default function Signup() {
                   <input
                     id="username"
                     type="text"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                     placeholder="username"
+                    required
                     className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                   />
                 </div>
@@ -126,7 +202,11 @@ export default function Signup() {
                 <input
                   id="password"
                   type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
+                  required
+                  minLength={6}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
@@ -142,7 +222,11 @@ export default function Signup() {
                 <input
                   id="confirm-password"
                   type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
+                  required
+                  minLength={6}
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
@@ -169,9 +253,10 @@ export default function Signup() {
             {/* Sign Up Button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-pink-500 to-orange-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition transform hover:scale-105"
+              disabled={loading}
+              className="w-full bg-gradient-to-r from-pink-500 to-orange-500 text-white py-3 rounded-lg font-semibold hover:shadow-lg transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Create Account
+              {loading ? 'Creating Account...' : 'Create Account'}
             </button>
           </form>
 
