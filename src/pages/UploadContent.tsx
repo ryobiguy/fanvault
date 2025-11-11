@@ -146,7 +146,7 @@ export default function UploadContent() {
                 <p className="text-sm text-gray-500 mb-4">or</p>
                 <button
                   onClick={() => fileInputRef.current?.click()}
-                  className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition"
+                  className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-6 py-2 rounded-lg font-medium hover:shadow-lg transition"
                 >
                   Browse Files
                 </button>
@@ -302,7 +302,7 @@ export default function UploadContent() {
             <button
               onClick={handlePost}
               disabled={contentType !== 'text' && files.length === 0}
-              className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {destination === 'feed' ? 'Post to Feed' : 'Continue to Recipients'}
             </button>

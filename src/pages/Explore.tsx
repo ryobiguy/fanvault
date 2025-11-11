@@ -181,7 +181,7 @@ export default function Explore() {
           <div className="flex justify-between items-center h-16">
             <Link to="/" className="flex items-center">
               <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-orange-600 bg-clip-text text-transparent">
                 DirectFans
               </span>
             </Link>
@@ -206,7 +206,7 @@ export default function Explore() {
                   <Link to="/login" className="text-gray-700 hover:text-gray-900 font-medium">
                     Log In
                   </Link>
-                  <Link to="/signup" className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition">
+                  <Link to="/signup" className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-4 py-2 rounded-lg font-medium hover:shadow-lg transition">
                     Sign Up
                   </Link>
                 </>
@@ -274,7 +274,7 @@ export default function Explore() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`flex items-center space-x-2 px-4 py-2 rounded-lg font-medium transition whitespace-nowrap ${
                   selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white'
+                    ? 'bg-gradient-to-r from-pink-600 to-orange-600 text-white'
                     : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200'
                 }`}
               >
@@ -330,13 +330,13 @@ function CreatorCard({ creator }: CreatorCardProps) {
       className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-lg transition group"
     >
       {/* Cover Image */}
-      <div className="h-32 bg-gradient-to-br from-pink-400 to-purple-500 relative">
+      <div className="h-32 bg-gradient-to-br from-pink-400 to-orange-500 relative">
         <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-10 transition"></div>
       </div>
 
       {/* Avatar */}
       <div className="px-4 -mt-12 relative z-10">
-        <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white text-2xl font-bold border-4 border-white">
+        <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white text-2xl font-bold border-4 border-white">
           {creator.avatar}
         </div>
       </div>
@@ -371,13 +371,13 @@ function CreatorCard({ creator }: CreatorCardProps) {
           {creator.previewImages.map((_, index) => (
             <div
               key={index}
-              className="aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded"
+              className="aspect-square bg-gradient-to-br from-pink-100 to-orange-100 rounded"
             ></div>
           ))}
         </div>
 
         {/* Subscribe Button */}
-        <button className="w-full bg-gradient-to-r from-pink-600 to-purple-600 text-white py-2 rounded-lg font-medium hover:shadow-lg transition">
+        <button className="w-full bg-gradient-to-r from-pink-600 to-orange-600 text-white py-2 rounded-lg font-medium hover:shadow-lg transition">
           Subscribe
         </button>
       </div>

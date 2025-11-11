@@ -51,7 +51,7 @@ export default function EditProfile() {
           {/* Cover & Avatar */}
           <div className="bg-white rounded-xl shadow-sm overflow-hidden">
             {/* Cover Photo */}
-            <div className="h-48 bg-gradient-to-br from-pink-400 to-purple-500 relative group">
+            <div className="h-48 bg-gradient-to-br from-pink-400 to-orange-500 relative group">
               <button className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition flex items-center justify-center">
                 <div className="opacity-0 group-hover:opacity-100 transition">
                   <Camera className="h-12 w-12 text-white mb-2" />
@@ -63,7 +63,7 @@ export default function EditProfile() {
             {/* Avatar */}
             <div className="px-6 -mt-16 relative z-10 pb-6">
               <div className="relative inline-block">
-                <div className="w-32 h-32 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white text-4xl font-bold border-4 border-white">
+                <div className="w-32 h-32 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white text-4xl font-bold border-4 border-white">
                   {user?.avatar || 'U'}
                 </div>
                 <button className="absolute bottom-0 right-0 bg-pink-600 text-white p-3 rounded-full hover:bg-pink-700 transition">
@@ -241,7 +241,7 @@ export default function EditProfile() {
             </button>
             <button
               onClick={handleSave}
-              className="flex items-center space-x-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition"
+              className="flex items-center space-x-2 bg-gradient-to-r from-pink-600 to-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition"
             >
               <Save className="h-5 w-5" />
               <span>Save Changes</span>

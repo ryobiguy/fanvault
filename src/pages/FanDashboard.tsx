@@ -139,7 +139,7 @@ function ContentPost({
       {/* Header */}
       <div className="p-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+          <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
             {creatorAvatar}
           </div>
           <div>
@@ -158,7 +158,7 @@ function ContentPost({
       </div>
 
       {/* Content */}
-      <div className="relative bg-gradient-to-br from-pink-100 to-purple-100 aspect-video flex items-center justify-center">
+      <div className="relative bg-gradient-to-br from-pink-100 to-orange-100 aspect-video flex items-center justify-center">
         {type === 'image' ? (
           <Image className="h-16 w-16 text-pink-600" />
         ) : (
@@ -197,7 +197,7 @@ function SubscriptionItem({ name, username, avatar, price }: SubscriptionItemPro
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
           {avatar}
         </div>
         <div>
@@ -221,7 +221,7 @@ function SuggestedCreator({ name, avatar, subscribers }: SuggestedCreatorProps) 
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3">
-        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
           {avatar}
         </div>
         <div>

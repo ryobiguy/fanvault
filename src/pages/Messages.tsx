@@ -200,7 +200,7 @@ export default function Messages() {
                     }`}
                   >
                     <div className="relative">
-                      <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                      <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
                         {conv.userAvatar}
                       </div>
                       {conv.unread > 0 && (
@@ -226,7 +226,7 @@ export default function Messages() {
               {/* Thread Header */}
               <div className="p-4 border-b border-gray-200 flex items-center justify-between">
                 <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white font-bold">
+                  <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
                     {selectedConv?.userAvatar}
                   </div>
                   <div>
@@ -309,7 +309,7 @@ export default function Messages() {
                     placeholder={isPaidMessage ? 'Type a paid message...' : 'Type a message...'}
                     className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
                   />
-                  <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white p-3 rounded-lg hover:shadow-lg transition">
+                  <button className="bg-gradient-to-r from-pink-500 to-orange-500 text-white p-3 rounded-lg hover:shadow-lg transition">
                     <Send className="h-5 w-5" />
                   </button>
                 </div>
@@ -343,7 +343,7 @@ function MessageBubble({ message }: MessageBubbleProps) {
         <div
           className={`rounded-2xl px-4 py-3 ${
             isMe
-              ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white'
+              ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white'
               : 'bg-gray-100 text-gray-900'
           }`}
         >
@@ -361,7 +361,7 @@ function MessageBubble({ message }: MessageBubbleProps) {
           ) : (
             <>
               {message.hasMedia && !message.isLocked && (
-                <div className="mb-2 rounded-lg overflow-hidden bg-gradient-to-br from-pink-100 to-purple-100 aspect-video flex items-center justify-center">
+                <div className="mb-2 rounded-lg overflow-hidden bg-gradient-to-br from-pink-100 to-orange-100 aspect-video flex items-center justify-center">
                   {message.mediaType === 'image' ? (
                     <Image className="h-12 w-12 text-pink-600" />
                   ) : (

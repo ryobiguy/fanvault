@@ -51,7 +51,7 @@ export default function CreatorDashboard() {
         <div className="bg-white rounded-xl shadow-sm p-6 mb-8">
           <h2 className="text-xl font-bold mb-4">Quick Actions</h2>
           <div className="grid md:grid-cols-3 gap-4">
-            <Link to="/upload" className="flex items-center justify-center space-x-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-4 rounded-lg font-medium hover:shadow-lg transition">
+            <Link to="/upload" className="flex items-center justify-center space-x-2 bg-gradient-to-r from-pink-500 to-orange-500 text-white px-6 py-4 rounded-lg font-medium hover:shadow-lg transition">
               <Upload className="h-5 w-5" />
               <span>Upload Content</span>
             </Link>
@@ -103,7 +103,7 @@ export default function CreatorDashboard() {
         {/* Earnings Chart Placeholder */}
         <div className="bg-white rounded-xl shadow-sm p-6">
           <h2 className="text-xl font-bold mb-4">Earnings Overview</h2>
-          <div className="h-64 bg-gradient-to-br from-pink-50 to-purple-50 rounded-lg flex items-center justify-center">
+          <div className="h-64 bg-gradient-to-br from-pink-50 to-orange-50 rounded-lg flex items-center justify-center">
             <p className="text-gray-500">Chart visualization would go here</p>
           </div>
         </div>
@@ -148,7 +148,7 @@ function ContentItem({ type, title, date, views, likes, earnings }: ContentItemP
   return (
     <div className="flex items-center justify-between p-4 border border-gray-200 rounded-lg hover:border-pink-300 transition">
       <div className="flex items-center space-x-4">
-        <div className="w-16 h-16 bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg flex items-center justify-center">
+        <div className="w-16 h-16 bg-gradient-to-br from-pink-100 to-orange-100 rounded-lg flex items-center justify-center">
           {type === 'image' ? (
             <Image className="h-8 w-8 text-pink-600" />
           ) : (

@@ -19,7 +19,7 @@ export default function CreatorProfile() {
             </div>
             <Link to="/" className="flex items-center">
               <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-orange-600 bg-clip-text text-transparent">
                 DirectFans
               </span>
             </Link>
@@ -29,14 +29,14 @@ export default function CreatorProfile() {
       </nav>
 
       {/* Profile Header */}
-      <div className="bg-gradient-to-r from-pink-500 to-purple-600 h-48"></div>
+      <div className="bg-gradient-to-r from-pink-500 to-orange-600 h-48"></div>
       
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="relative -mt-20 mb-8">
           <div className="bg-white rounded-xl shadow-lg p-8">
             <div className="flex flex-col md:flex-row md:items-end md:justify-between">
               <div className="flex flex-col md:flex-row md:items-end space-y-4 md:space-y-0 md:space-x-6">
-                <div className="w-32 h-32 bg-gradient-to-br from-pink-500 to-purple-500 rounded-full flex items-center justify-center text-white text-4xl font-bold border-4 border-white shadow-lg">
+                <div className="w-32 h-32 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white text-4xl font-bold border-4 border-white shadow-lg">
                   SJ
                 </div>
                 <div className="pb-2">
@@ -62,7 +62,7 @@ export default function CreatorProfile() {
                 </div>
               </div>
               <div className="flex flex-col space-y-3 mt-4 md:mt-0">
-                <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition flex items-center justify-center space-x-2">
+                <button className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition flex items-center justify-center space-x-2">
                   <Star className="h-5 w-5" />
                   <span>Subscribe - $9.99/mo</span>
                 </button>
@@ -146,7 +146,7 @@ function SubscriptionTier({ name, price, features, popular }: SubscriptionTierPr
     <div className={`bg-white rounded-xl shadow-sm p-6 ${popular ? 'ring-2 ring-pink-600' : ''} relative`}>
       {popular && (
         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-          <span className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
+          <span className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-4 py-1 rounded-full text-sm font-semibold">
             Most Popular
           </span>
         </div>
@@ -166,7 +166,7 @@ function SubscriptionTier({ name, price, features, popular }: SubscriptionTierPr
       </ul>
       <button className={`w-full py-3 rounded-lg font-semibold transition ${
         popular
-          ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white hover:shadow-lg'
+          ? 'bg-gradient-to-r from-pink-600 to-orange-600 text-white hover:shadow-lg'
           : 'bg-gray-100 text-gray-900 hover:bg-gray-200'
       }`}>
         Subscribe
@@ -182,7 +182,7 @@ interface ContentPreviewProps {
 
 function ContentPreview({ type, locked }: ContentPreviewProps) {
   return (
-    <div className="relative aspect-square bg-gradient-to-br from-pink-100 to-purple-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition">
+    <div className="relative aspect-square bg-gradient-to-br from-pink-100 to-orange-100 rounded-lg overflow-hidden cursor-pointer hover:opacity-90 transition">
       <div className="absolute inset-0 flex items-center justify-center">
         {locked ? (
           <Lock className="h-12 w-12 text-gray-400" />

@@ -37,7 +37,7 @@ export default function SettingsPage() {
                     onClick={() => setActiveTab(tab.id)}
                     className={`w-full flex items-center space-x-3 px-4 py-3 rounded-lg transition ${
                       activeTab === tab.id
-                        ? 'bg-gradient-to-r from-pink-600 to-purple-600 text-white'
+                        ? 'bg-gradient-to-r from-pink-600 to-orange-600 text-white'
                         : 'text-gray-700 hover:bg-gray-50'
                     }`}
                   >
@@ -124,7 +124,7 @@ function AccountSettings() {
             </div>
           </div>
 
-          <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+          <button className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
             Save Changes
           </button>
         </div>
@@ -222,7 +222,7 @@ function PrivacySettings() {
           </button>
         </div>
 
-        <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+        <button className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
           Save Privacy Settings
         </button>
       </div>
@@ -346,7 +346,7 @@ function NotificationSettings() {
           </button>
         </div>
 
-        <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition mt-6">
+        <button className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition mt-6">
           Save Notification Settings
         </button>
       </div>
@@ -360,7 +360,7 @@ function BillingSettings() {
   return (
     <div className="space-y-6">
       {user?.type === 'creator' && (
-        <div className="bg-gradient-to-r from-pink-50 to-purple-50 border-2 border-pink-200 rounded-xl p-6">
+        <div className="bg-gradient-to-r from-pink-50 to-orange-50 border-2 border-pink-200 rounded-xl p-6">
           <h2 className="text-xl font-bold mb-2">Creator Subscription</h2>
           <p className="text-gray-600 mb-4">
             Your monthly platform fee: <span className="font-bold text-pink-600">£10.00</span>
@@ -411,7 +411,7 @@ function BillingSettings() {
               className="w-full px-4 py-3 border border-gray-300 rounded-lg bg-gray-50"
             />
           </div>
-          <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+          <button className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
             Connect Bank Account
           </button>
         </div>
@@ -467,7 +467,7 @@ function SecuritySettings() {
             </div>
           </div>
 
-          <button className="bg-gradient-to-r from-pink-600 to-purple-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
+          <button className="bg-gradient-to-r from-pink-600 to-orange-600 text-white px-6 py-3 rounded-lg font-semibold hover:shadow-lg transition">
             Update Password
           </button>
         </div>
