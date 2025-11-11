@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Star, Image, Video, Heart, MessageCircle } from 'lucide-react'
+import { Star, Image, Video, Heart } from 'lucide-react'
 import DashboardLayout from '../components/DashboardLayout'
 
 export default function FanDashboard() {
