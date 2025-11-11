@@ -92,11 +92,29 @@ app.use((req, res) => {
   res.status(404).json({ error: { message: 'Route not found' } });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 FanVault API server running on port ${PORT}`);
-  console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
-});
+// Test database connection before starting server
+import pool from './config/database.js';
+
+async function startServer() {
+  try {
+    // Test database connection
+    console.log('🔍 Testing database connection...');
+    const result = await pool.query('SELECT NOW()');
+    console.log('✅ Database connected successfully at:', result.rows[0].now);
+    
+    // Start server
+    app.listen(PORT, () => {
+      console.log(`🚀 FanVault API server running on port ${PORT}`);
+      console.log(`📍 Environment: ${process.env.NODE_ENV || 'development'}`);
+      console.log(`🌐 Frontend URL: ${process.env.FRONTEND_URL || 'http://localhost:3000'}`);
+    });
+  } catch (error) {
+    console.error('❌ Failed to connect to database:', error.message);
+    console.error('Full error:', error);
+    process.exit(1);
+  }
+}
+
+startServer();
 
 export default app;
