@@ -20,7 +20,7 @@ export default function CreatorProfile() {
             <Link to="/" className="flex items-center">
               <Heart className="h-8 w-8 text-pink-600" />
               <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                FanVault
+                DirectFans
               </span>
             </Link>
             <div className="w-24"></div>

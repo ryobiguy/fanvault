@@ -38,7 +38,7 @@ export default function Login() {
         <Link to="/" className="flex items-center justify-center mb-8">
           <Heart className="h-12 w-12 text-pink-600" />
           <span className="ml-2 text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-            FanVault
+            DirectFans
           </span>
         </Link>
 
@@ -51,7 +51,7 @@ export default function Login() {
           <div className="bg-gradient-to-r from-pink-50 to-purple-50 border border-pink-200 rounded-lg p-4 mb-6">
             <p className="text-sm font-semibold text-gray-900 mb-2">Demo Accounts:</p>
             <div className="space-y-1 text-xs text-gray-700">
-              <p>• <span className="font-medium">Creator:</span> sarah@fanvault.com (or type "creator")</p>
+              <p>• <span className="font-medium">Creator:</span> sarah@directfans.com (or type "creator")</p>
               <p>• <span className="font-medium">Fan:</span> john@example.com (or type "fan")</p>
               <p className="text-gray-500 mt-2">Password: anything works!</p>
             </div>

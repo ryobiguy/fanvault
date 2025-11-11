@@ -27,7 +27,7 @@ export default function LandingPage() {
             <div className="flex items-center">
               <Heart className="h-8 w-8 text-pink-600" />
               <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-                FanVault
+                DirectFans
               </span>
             </div>
             <div className="flex items-center space-x-4">
@@ -87,7 +87,7 @@ export default function LandingPage() {
 
       {/* Features Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h2 className="text-4xl font-bold text-center mb-16">Why Choose FanVault?</h2>
+        <h2 className="text-4xl font-bold text-center mb-16">Why Choose DirectFans?</h2>
         <div className="grid md:grid-cols-3 gap-8">
           <FeatureCard
             icon={<DollarSign className="h-12 w-12 text-pink-600" />}
@@ -147,7 +147,7 @@ export default function LandingPage() {
         <div className="bg-gradient-to-r from-pink-100 to-purple-100 rounded-3xl p-12 text-center">
           <h2 className="text-4xl font-bold mb-4">Ready to Keep 100% of Your Earnings?</h2>
           <p className="text-xl text-gray-700 mb-8">
-            Join FanVault for just £10/month. No commissions. No hidden fees. Just you and your fans.
+            Join DirectFans for just £10/month. No commissions. No hidden fees. Just you and your fans.
           </p>
           <Link
             to="/signup"
@@ -165,7 +165,7 @@ export default function LandingPage() {
             <div>
               <div className="flex items-center mb-4">
                 <Heart className="h-6 w-6 text-pink-500" />
-                <span className="ml-2 text-xl font-bold">FanVault</span>
+                <span className="ml-2 text-xl font-bold">DirectFans</span>
               </div>
               <p className="text-gray-400">
                 The only platform where creators keep 100% of their earnings. Just £10/month.
@@ -197,7 +197,7 @@ export default function LandingPage() {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 FanVault. All rights reserved.</p>
+            <p>&copy; 2024 DirectFans. All rights reserved.</p>
           </div>
         </div>
       </footer>

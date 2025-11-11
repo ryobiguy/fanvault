@@ -12,7 +12,7 @@ export default function Signup() {
         <Link to="/" className="flex items-center justify-center mb-8">
           <Heart className="h-12 w-12 text-pink-600" />
           <span className="ml-2 text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent">
-            FanVault
+            DirectFans
           </span>
         </Link>
 

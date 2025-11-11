@@ -27,7 +27,7 @@ const DEMO_ACCOUNTS = {
   creator: {
     id: 'creator-1',
     name: 'Sarah Johnson',
-    email: 'sarah@fanvault.com',
+    email: 'sarah@directfans.com',
     username: 'sarahjfit',
     avatar: 'SJ',
     type: 'creator' as const,
@@ -51,13 +51,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = async (email: string, _password: string): Promise<boolean> => {
     // Demo login - accept any password
-    if (email === 'sarah@fanvault.com' || email === 'creator') {
+    if (email === 'sarah@directfans.com' || email === 'creator') {
       setUser(DEMO_ACCOUNTS.creator)
-      localStorage.setItem('fanvault_user', JSON.stringify(DEMO_ACCOUNTS.creator))
+      localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.creator))
       return true
     } else if (email === 'john@example.com' || email === 'fan') {
       setUser(DEMO_ACCOUNTS.fan)
-      localStorage.setItem('fanvault_user', JSON.stringify(DEMO_ACCOUNTS.fan))
+      localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.fan))
       return true
     }
     return false
@@ -65,13 +65,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setUser(null)
-    localStorage.removeItem('fanvault_user')
+    localStorage.removeItem('directfans_user')
   }
 
   const switchAccount = (accountType: 'creator' | 'fan') => {
     const account = DEMO_ACCOUNTS[accountType]
     setUser(account)
-    localStorage.setItem('fanvault_user', JSON.stringify(account))
+    localStorage.setItem('directfans_user', JSON.stringify(account))
   }
 
   return (

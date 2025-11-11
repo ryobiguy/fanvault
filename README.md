@@ -1,6 +1,6 @@
-# FanVault - Keep 100% of Your Earnings
+# DirectFans - Keep 100% of Your Earnings
 
-A revolutionary content subscription platform built with React, TypeScript, and Tailwind CSS. Unlike OnlyFans, FanVault charges creators a simple £10/month subscription fee and lets them keep 100% of their earnings. No commissions, no hidden fees.
+A revolutionary content subscription platform built with React, TypeScript, and Tailwind CSS. Unlike OnlyFans, DirectFans charges creators a simple £10/month subscription fee and lets them keep 100% of their earnings. No commissions, no hidden fees.
 
 ## 🚀 Quick Start
 
@@ -60,7 +60,7 @@ npm run dev
 ## 🔑 Demo Accounts
 
 **Creator Account:**
-- Email: `creator` or `sarah@fanvault.com`
+- Email: `creator` or `sarah@directfans.com`
 - Password: anything works!
 - Access: Creator dashboard, upload content, messaging, profile editing
 
