@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { Heart, Mail, Lock, AlertCircle } from 'lucide-react'
+import { AlertCircle, Mail, Lock } from 'lucide-react'
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 
@@ -36,10 +36,7 @@ export default function Login() {
       <div className="max-w-md w-full">
         {/* Logo */}
         <Link to="/" className="flex items-center justify-center mb-8">
-          <Heart className="h-12 w-12 text-pink-600" />
-          <span className="ml-2 text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
-            DirectFans
-          </span>
+          <img src="/logo.png" alt="DirectFans" className="h-12" />
         </Link>
 
         {/* Login Card */}

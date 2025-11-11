@@ -25,10 +25,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             <div className="flex items-center">
-              <Heart className="h-8 w-8 text-pink-600" />
-              <span className="ml-2 text-2xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
-                DirectFans
-              </span>
+              <img src="/logo.png" alt="DirectFans" className="h-8" />
             </div>
             <div className="flex items-center space-x-4">
               <Link
@@ -164,8 +161,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-4 gap-8">
             <div>
               <div className="flex items-center mb-4">
-                <Heart className="h-6 w-6 text-pink-500" />
-                <span className="ml-2 text-xl font-bold">DirectFans</span>
+                <img src="/logo.png" alt="DirectFans" className="h-6" />
               </div>
               <p className="text-gray-400">
                 The only platform where creators keep 100% of their earnings. Just £10/month.

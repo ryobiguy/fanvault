@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Heart, Mail, Lock, User, Briefcase, Users } from 'lucide-react'
+import { Mail, Lock, User, Briefcase, Users } from 'lucide-react'
 import { useState } from 'react'
 
 export default function Signup() {
@@ -10,10 +10,7 @@ export default function Signup() {
       <div className="max-w-md w-full">
         {/* Logo */}
         <Link to="/" className="flex items-center justify-center mb-8">
-          <Heart className="h-12 w-12 text-pink-600" />
-          <span className="ml-2 text-3xl font-bold bg-gradient-to-r from-pink-500 to-orange-500 bg-clip-text text-transparent">
-            DirectFans
-          </span>
+          <img src="/logo.png" alt="DirectFans" className="h-12" />
         </Link>
 
         {/* Signup Card */}
