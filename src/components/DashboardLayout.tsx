@@ -30,6 +30,7 @@ interface NavItem {
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [sidebarExpanded, setSidebarExpanded] = useState(false)
+  const [notificationsOpen, setNotificationsOpen] = useState(false)
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const location = useLocation()
@@ -72,10 +73,88 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
           {/* Account Info */}
           <div className="flex items-center space-x-4">
             {/* Notifications */}
-            <button className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors">
-              <Bell className="h-5 w-5" />
-              <span className="absolute top-1 right-1 w-2 h-2 bg-pink-600 rounded-full"></span>
-            </button>
+            <div className="relative">
+              <button 
+                onClick={() => setNotificationsOpen(!notificationsOpen)}
+                className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
+              >
+                <Bell className="h-5 w-5" />
+                <span className="absolute top-1 right-1 w-2 h-2 bg-pink-600 rounded-full"></span>
+              </button>
+
+              {/* Notifications Dropdown */}
+              {notificationsOpen && (
+                <div className="absolute right-0 mt-2 w-80 bg-white rounded-lg shadow-xl border border-gray-200 z-50">
+                  <div className="p-4 border-b border-gray-200">
+                    <h3 className="font-semibold text-gray-900">Notifications</h3>
+                  </div>
+                  <div className="max-h-96 overflow-y-auto">
+                    {/* Notification Items */}
+                    <div className="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                          SJ
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-900">
+                            <span className="font-semibold">Sarah Johnson</span> sent you a new message
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">2 minutes ago</p>
+                        </div>
+                        <div className="w-2 h-2 bg-pink-600 rounded-full flex-shrink-0 mt-2"></div>
+                      </div>
+                    </div>
+
+                    <div className="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                          MC
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-900">
+                            <span className="font-semibold">Mike Chen</span> posted new content
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">1 hour ago</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
+                          ED
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-900">
+                            <span className="font-semibold">Emma Davis</span> liked your comment
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">3 hours ago</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
+                      <div className="flex items-start space-x-3">
+                        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
+                          <Bell className="h-5 w-5 text-gray-500" />
+                        </div>
+                        <div className="flex-1">
+                          <p className="text-sm text-gray-900">
+                            Your subscription to <span className="font-semibold">Premium Plan</span> renews tomorrow
+                          </p>
+                          <p className="text-xs text-gray-500 mt-1">1 day ago</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="p-3 border-t border-gray-200 text-center">
+                    <button className="text-sm text-pink-600 hover:text-pink-700 font-medium">
+                      View all notifications
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* User Menu */}
             <div className="flex items-center space-x-3">
