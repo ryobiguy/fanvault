@@ -178,12 +178,11 @@ export default function Messages() {
                     <p className="text-sm text-gray-500">@sarahjfit • Active now</p>
                   </div>
                 </div>
-                <Link
-                  to="/creator/sarahjfit"
+                <button
                   className="text-pink-600 hover:text-pink-700 font-medium text-sm"
                 >
                   View Profile
-                </Link>
+                </button>
               </div>
 
               {/* Messages */}

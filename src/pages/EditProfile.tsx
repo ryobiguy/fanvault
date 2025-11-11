@@ -233,13 +233,12 @@ export default function EditProfile() {
 
           {/* Action Buttons */}
           <div className="flex items-center justify-between bg-white rounded-xl shadow-sm p-6">
-            <Link
-              to="/creator/dashboard"
+            <button
               className="flex items-center space-x-2 text-gray-600 hover:text-gray-900 font-medium"
             >
               <X className="h-5 w-5" />
               <span>Cancel</span>
-            </Link>
+            </button>
             <button
               onClick={handleSave}
               className="flex items-center space-x-2 bg-gradient-to-r from-pink-600 to-purple-600 text-white px-8 py-3 rounded-lg font-semibold hover:shadow-lg transition"

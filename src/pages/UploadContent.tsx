@@ -294,12 +294,11 @@ export default function UploadContent() {
 
           {/* Action Buttons */}
           <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-            <Link
-              to="/creator/dashboard"
+            <button
               className="text-gray-600 hover:text-gray-900 font-medium"
             >
               Cancel
-            </Link>
+            </button>
             <button
               onClick={handlePost}
               disabled={contentType !== 'text' && files.length === 0}
