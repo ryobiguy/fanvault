@@ -85,9 +85,10 @@ export default function Signup() {
         userType: accountType
       })
 
-      // Navigate to appropriate dashboard
+      // Navigate to appropriate page
       if (accountType === 'creator') {
-        navigate('/creator/dashboard')
+        // Redirect creators to subscription page
+        navigate('/creator/subscription')
       } else {
         navigate('/fan/dashboard')
       }
