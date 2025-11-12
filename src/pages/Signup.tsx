@@ -1,7 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { Mail, Lock, User, Briefcase, Users, AlertCircle } from 'lucide-react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
+import ReCAPTCHA from 'react-google-recaptcha'
 import { authService } from '../services/authService'
+import PasswordStrength from '../components/PasswordStrength'
+
+// Temporary site key for development - replace with your actual key
+const RECAPTCHA_SITE_KEY = (import.meta as any).env?.VITE_RECAPTCHA_SITE_KEY || '6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
 
 export default function Signup() {
   const [accountType, setAccountType] = useState<'creator' | 'fan'>('fan')
@@ -12,11 +17,19 @@ export default function Signup() {
   const [confirmPassword, setConfirmPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const recaptchaRef = useRef<ReCAPTCHA>(null)
   const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+
+    // CAPTCHA validation
+    if (!captchaToken) {
+      setError('Please complete the CAPTCHA verification')
+      return
+    }
 
     // Validation
     if (!name || !email || !password) {
@@ -34,8 +47,29 @@ export default function Signup() {
       return
     }
 
+    // Enhanced password validation
     if (password.length < 8) {
       setError('Password must be at least 8 characters')
+      return
+    }
+
+    if (!/[A-Z]/.test(password)) {
+      setError('Password must contain at least one uppercase letter')
+      return
+    }
+
+    if (!/[a-z]/.test(password)) {
+      setError('Password must contain at least one lowercase letter')
+      return
+    }
+
+    if (!/[0-9]/.test(password)) {
+      setError('Password must contain at least one number')
+      return
+    }
+
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+      setError('Password must contain at least one special character')
       return
     }
 
@@ -210,6 +244,7 @@ export default function Signup() {
                   className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
                 />
               </div>
+              <PasswordStrength password={password} />
             </div>
 
             {/* Confirm Password */}
@@ -237,6 +272,7 @@ export default function Signup() {
               <input
                 type="checkbox"
                 className="w-4 h-4 text-pink-600 border-gray-300 rounded focus:ring-pink-500 mt-1"
+                required
               />
               <label className="ml-2 text-sm text-gray-700">
                 I agree to the{' '}
@@ -248,6 +284,16 @@ export default function Signup() {
                   Privacy Policy
                 </a>
               </label>
+            </div>
+
+            {/* reCAPTCHA */}
+            <div className="flex justify-center">
+              <ReCAPTCHA
+                ref={recaptchaRef}
+                sitekey={RECAPTCHA_SITE_KEY}
+                onChange={(token) => setCaptchaToken(token)}
+                onExpired={() => setCaptchaToken(null)}
+              />
             </div>
 
             {/* Sign Up Button */}
