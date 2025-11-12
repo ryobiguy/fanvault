@@ -138,7 +138,7 @@ export default function Messages() {
     ]
   }
 
-  const messages = allMessages[selectedConversation] || []
+  const messages = selectedConversation ? (allMessages[selectedConversation] || []) : []
   const selectedConv = conversations.find(c => c.id === selectedConversation)
 
   return (
@@ -212,7 +212,7 @@ export default function Messages() {
 
               {/* Messages */}
               <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {messages.map((message) => (
+                {messages.map((message: Message) => (
                   <MessageBubble key={message.id} message={message} />
                 ))}
               </div>
