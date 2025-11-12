@@ -93,10 +93,10 @@ export default function Signup() {
       if (accountType === 'creator') {
         // Redirect creators to subscription page
         console.log('Redirecting to subscription page')
-        window.location.href = '/creator/subscription'
+        window.location.href = '/creator/subscription?new=true'
       } else {
         console.log('Redirecting to fan dashboard')
-        window.location.href = '/fan/dashboard'
+        window.location.href = '/fan/dashboard?new=true'
       }
     } catch (err: any) {
       setError(err.message || 'Failed to create account')
@@ -136,7 +136,11 @@ export default function Signup() {
           {/* Account Type Selection */}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <button
-              onClick={() => setAccountType('fan')}
+              type="button"
+              onClick={() => {
+                console.log('Setting account type to: fan')
+                setAccountType('fan')
+              }}
               className={`p-4 rounded-lg border-2 transition ${
                 accountType === 'fan'
                   ? 'border-pink-600 bg-pink-50'
@@ -154,7 +158,11 @@ export default function Signup() {
               <p className="text-xs text-gray-500 mt-1">Support creators</p>
             </button>
             <button
-              onClick={() => setAccountType('creator')}
+              type="button"
+              onClick={() => {
+                console.log('Setting account type to: creator')
+                setAccountType('creator')
+              }}
               className={`p-4 rounded-lg border-2 transition ${
                 accountType === 'creator'
                   ? 'border-purple-600 bg-purple-50'
