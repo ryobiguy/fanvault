@@ -23,6 +23,8 @@ export default function Signup() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError('')
+    
+    alert('Form submitted! Account type: ' + accountType)
 
     // CAPTCHA validation
     if (!captchaToken) {
