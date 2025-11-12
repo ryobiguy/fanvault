@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Mail, Lock, User, Briefcase, Users, AlertCircle } from 'lucide-react'
 import { useState, useRef } from 'react'
 import ReCAPTCHA from 'react-google-recaptcha'
@@ -19,7 +19,6 @@ export default function Signup() {
   const [loading, setLoading] = useState(false)
   const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const recaptchaRef = useRef<ReCAPTCHA>(null)
-  const navigate = useNavigate()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
