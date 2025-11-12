@@ -77,7 +77,7 @@ export default function Signup() {
 
     try {
       // Register user
-      await authService.register({
+      const result = await authService.register({
         email,
         password,
         displayName: name,
@@ -85,11 +85,16 @@ export default function Signup() {
         userType: accountType
       })
 
+      console.log('Registration result:', result)
+      console.log('Account type:', accountType)
+
       // Navigate to appropriate page
       if (accountType === 'creator') {
         // Redirect creators to subscription page
+        console.log('Redirecting to subscription page')
         navigate('/creator/subscription')
       } else {
+        console.log('Redirecting to fan dashboard')
         navigate('/fan/dashboard')
       }
     } catch (err: any) {
