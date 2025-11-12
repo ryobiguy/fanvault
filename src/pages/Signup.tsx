@@ -92,10 +92,10 @@ export default function Signup() {
       if (accountType === 'creator') {
         // Redirect creators to subscription page
         console.log('Redirecting to subscription page')
-        navigate('/creator/subscription')
+        window.location.href = '/creator/subscription'
       } else {
         console.log('Redirecting to fan dashboard')
-        navigate('/fan/dashboard')
+        window.location.href = '/fan/dashboard'
       }
     } catch (err: any) {
       setError(err.message || 'Failed to create account')
