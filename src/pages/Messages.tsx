@@ -28,43 +28,12 @@ interface Conversation {
 }
 
 export default function Messages() {
-  const [selectedConversation, setSelectedConversation] = useState<string>('1')
+  const [selectedConversation, setSelectedConversation] = useState<string | null>(null)
   const [messageText, setMessageText] = useState('')
   const [isPaidMessage, setIsPaidMessage] = useState(false)
   const [messagePrice, setMessagePrice] = useState('5.00')
 
-  const conversations: Conversation[] = [
-    {
-      id: '1',
-      userId: 'user1',
-      userName: 'Sarah Johnson',
-      userAvatar: 'SJ',
-      lastMessage: 'Thanks for subscribing! 💕',
-      timestamp: '2m ago',
-      unread: 2,
-      isCreator: true
-    },
-    {
-      id: '2',
-      userId: 'user2',
-      userName: 'Mike Chen',
-      userAvatar: 'MC',
-      lastMessage: 'Check out my new content!',
-      timestamp: '1h ago',
-      unread: 0,
-      isCreator: true
-    },
-    {
-      id: '3',
-      userId: 'user3',
-      userName: 'Emma Davis',
-      userAvatar: 'ED',
-      lastMessage: 'Exclusive content just for you',
-      timestamp: '3h ago',
-      unread: 1,
-      isCreator: true
-    }
-  ]
+  const conversations: Conversation[] = []
 
   // Messages organized by conversation
   const allMessages: Record<string, Message[]> = {
