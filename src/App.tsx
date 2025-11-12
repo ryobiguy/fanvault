@@ -11,6 +11,7 @@ import UploadContent from './pages/UploadContent'
 import Explore from './pages/Explore'
 import EditProfile from './pages/EditProfile'
 import SettingsPage from './pages/SettingsPage'
+import CreatorSubscription from './pages/CreatorSubscription'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
           <Route path="/creator/dashboard" element={<CreatorDashboard />} />
+          <Route path="/creator/subscription" element={<CreatorSubscription />} />
           <Route path="/fan/dashboard" element={<FanDashboard />} />
           <Route path="/creator/:username" element={<CreatorProfile />} />
           <Route path="/messages" element={<Messages />} />
