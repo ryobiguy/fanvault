@@ -51,11 +51,18 @@ export const authService = {
       body: JSON.stringify(userData),
     })
     
+    // Map backend response to frontend format
+    const user = {
+      ...data.user,
+      type: data.user.userType || data.user.type,
+      name: data.user.displayName || data.user.name,
+    }
+    
     // Store token
     localStorage.setItem('directfans_token', data.token)
-    localStorage.setItem('directfans_user', JSON.stringify(data.user))
+    localStorage.setItem('directfans_user', JSON.stringify(user))
     
-    return data
+    return { token: data.token, user }
   },
 
   async getCurrentUser(): Promise<User> {
