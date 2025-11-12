@@ -11,6 +11,7 @@
   },
   "description": "DirectFans - Content subscription platform where creators keep 100% of earnings",
   "dependencies": {
+    "@stripe/stripe-js": "^8.4.0",
     "@types/react-google-recaptcha": "^2.1.9",
     "lucide-react": "^0.294.0",
     "react": "^18.2.0",
