@@ -38,6 +38,13 @@ export default function Signup() {
       return
     }
 
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+    if (!emailRegex.test(email)) {
+      setError('Please enter a valid email address')
+      return
+    }
+
     if (accountType === 'creator' && !username) {
       setError('Username is required for creators')
       return
