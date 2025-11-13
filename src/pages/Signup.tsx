@@ -96,15 +96,8 @@ export default function Signup() {
       console.log('Registration result:', result)
       console.log('Account type:', accountType)
 
-      // Navigate to appropriate page
-      if (accountType === 'creator') {
-        // Redirect creators to subscription page
-        console.log('Redirecting to subscription page')
-        window.location.href = '/creator/subscription?new=true'
-      } else {
-        console.log('Redirecting to fan dashboard')
-        window.location.href = '/fan/dashboard?new=true'
-      }
+      // Redirect to signup success page to check email
+      window.location.href = '/signup-success'
     } catch (err: any) {
       setError(err.message || 'Failed to create account')
     } finally {

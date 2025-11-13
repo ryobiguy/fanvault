@@ -5,6 +5,8 @@ import CreatorDashboard from './pages/CreatorDashboard'
 import FanDashboard from './pages/FanDashboard'
 import Login from './pages/Login'
 import Signup from './pages/Signup'
+import SignupSuccess from './pages/SignupSuccess'
+import VerifyEmail from './pages/VerifyEmail'
 import CreatorProfile from './pages/CreatorProfile'
 import Messages from './pages/Messages'
 import UploadContent from './pages/UploadContent'
@@ -21,6 +23,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="/signup-success" element={<SignupSuccess />} />
+          <Route path="/verify-email" element={<VerifyEmail />} />
           <Route path="/creator/dashboard" element={<CreatorDashboard />} />
           <Route path="/creator/subscription" element={<CreatorSubscription />} />
           <Route path="/fan/dashboard" element={<FanDashboard />} />
