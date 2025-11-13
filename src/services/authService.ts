@@ -32,17 +32,36 @@ export interface AuthResponse {
 }
 
 export const authService = {
+  // Helper to map backend user to frontend format
+  mapUser(backendUser: any): User {
+    return {
+      id: backendUser.id,
+      email: backendUser.email,
+      name: backendUser.displayName || backendUser.name,
+      username: backendUser.username,
+      type: backendUser.userType || backendUser.type,
+      avatar: backendUser.avatar,
+      bio: backendUser.bio,
+      subscriptionPrice: backendUser.subscriptionPrice,
+      subscribers: backendUser.subscribers,
+      earnings: backendUser.earnings,
+    }
+  },
+
   async login(credentials: LoginCredentials): Promise<AuthResponse> {
     const data = await apiRequest('/auth/login', {
       method: 'POST',
       body: JSON.stringify(credentials),
     })
     
+    // Map backend response to frontend format
+    const user = this.mapUser(data.user)
+    
     // Store token
     localStorage.setItem('directfans_token', data.token)
-    localStorage.setItem('directfans_user', JSON.stringify(data.user))
+    localStorage.setItem('directfans_user', JSON.stringify(user))
     
-    return data
+    return { token: data.token, user }
   },
 
   async register(userData: RegisterData): Promise<AuthResponse> {
@@ -52,11 +71,7 @@ export const authService = {
     })
     
     // Map backend response to frontend format
-    const user = {
-      ...data.user,
-      type: data.user.userType || data.user.type,
-      name: data.user.displayName || data.user.name,
-    }
+    const user = this.mapUser(data.user)
     
     // Store token
     localStorage.setItem('directfans_token', data.token)
@@ -67,7 +82,7 @@ export const authService = {
 
   async getCurrentUser(): Promise<User> {
     const data = await apiRequest('/auth/me')
-    return data.user
+    return this.mapUser(data.user)
   },
 
   logout() {
