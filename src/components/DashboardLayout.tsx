@@ -45,7 +45,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     ? [
         { icon: Home, label: 'Dashboard', path: '/creator/dashboard' },
         { icon: Upload, label: 'Upload', path: '/upload' },
-        { icon: MessageCircle, label: 'Messages', path: '/messages', badge: 3 },
+        { icon: MessageCircle, label: 'Messages', path: '/messages' },
         { icon: Users, label: 'Subscribers', path: '/subscribers' },
         { icon: DollarSign, label: 'Earnings', path: '/earnings' },
         { icon: User, label: 'Profile', path: '/profile/edit' },
@@ -53,7 +53,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     : [
         { icon: Home, label: 'Feed', path: '/fan/dashboard' },
         { icon: Search, label: 'Explore', path: '/explore' },
-        { icon: MessageCircle, label: 'Messages', path: '/messages', badge: 2 },
+        { icon: MessageCircle, label: 'Messages', path: '/messages' },
         { icon: Heart, label: 'Subscriptions', path: '/subscriptions' },
         { icon: User, label: 'Profile', path: '/profile/edit' },
       ]
@@ -66,7 +66,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <nav className="fixed top-0 left-0 right-0 h-16 bg-white border-b border-gray-200 z-50">
         <div className="h-full px-4 flex items-center justify-between">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-2">
+          <Link to={user?.type === 'creator' ? '/creator/dashboard' : '/fan/dashboard'} className="flex items-center space-x-2">
             <img src="/logo.png" alt="DirectFans" className="h-8" />
           </Link>
 
@@ -79,7 +79,6 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 className="relative p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors"
               >
                 <Bell className="h-5 w-5" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-pink-600 rounded-full"></span>
               </button>
 
               {/* Notifications Dropdown */}
@@ -89,68 +88,13 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                     <h3 className="font-semibold text-gray-900">Notifications</h3>
                   </div>
                   <div className="max-h-96 overflow-y-auto">
-                    {/* Notification Items */}
-                    <div className="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
-                      <div className="flex items-start space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
-                          SJ
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-gray-900">
-                            <span className="font-semibold">Sarah Johnson</span> sent you a new message
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">2 minutes ago</p>
-                        </div>
-                        <div className="w-2 h-2 bg-pink-600 rounded-full flex-shrink-0 mt-2"></div>
-                      </div>
+                    {/* Empty State */}
+                    <div className="p-8 text-center">
+                      <Bell className="h-12 w-12 text-gray-300 mx-auto mb-3" />
+                      <p className="text-sm text-gray-600">No notifications yet</p>
+                      <p className="text-xs text-gray-400 mt-1">We'll notify you when something happens</p>
                     </div>
 
-                    <div className="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
-                      <div className="flex items-start space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
-                          MC
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-gray-900">
-                            <span className="font-semibold">Mike Chen</span> posted new content
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">1 hour ago</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 hover:bg-gray-50 border-b border-gray-100 cursor-pointer">
-                      <div className="flex items-start space-x-3">
-                        <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold flex-shrink-0">
-                          ED
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-gray-900">
-                            <span className="font-semibold">Emma Davis</span> liked your comment
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">3 hours ago</p>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="p-4 hover:bg-gray-50 cursor-pointer">
-                      <div className="flex items-start space-x-3">
-                        <div className="w-10 h-10 bg-gray-200 rounded-full flex items-center justify-center flex-shrink-0">
-                          <Bell className="h-5 w-5 text-gray-500" />
-                        </div>
-                        <div className="flex-1">
-                          <p className="text-sm text-gray-900">
-                            Your subscription to <span className="font-semibold">Premium Plan</span> renews tomorrow
-                          </p>
-                          <p className="text-xs text-gray-500 mt-1">1 day ago</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="p-3 border-t border-gray-200 text-center">
-                    <button className="text-sm text-pink-600 hover:text-pink-700 font-medium">
-                      View all notifications
-                    </button>
                   </div>
                 </div>
               )}

@@ -1,4 +1,4 @@
-import { Search, Send, Image, Video, DollarSign, Lock, Unlock, Paperclip } from 'lucide-react'
+import { Search, Send, Image, Video, DollarSign, Lock, Unlock, Paperclip, MessageCircle } from 'lucide-react'
 import { useState } from 'react'
 import DashboardLayout from '../components/DashboardLayout'
 
@@ -34,112 +34,9 @@ export default function Messages() {
   const [messagePrice, setMessagePrice] = useState('5.00')
 
   const conversations: Conversation[] = []
-
-  // Messages organized by conversation
-  const allMessages: Record<string, Message[]> = {
-    '1': [
-      {
-        id: '1',
-        senderId: 'user1',
-        senderName: 'Sarah Johnson',
-        senderAvatar: 'SJ',
-        content: 'Hey! Thanks so much for subscribing to my content! 💕',
-        isPaid: false,
-        isLocked: false,
-        hasMedia: false,
-        timestamp: '10:30 AM'
-      },
-      {
-        id: '2',
-        senderId: 'me',
-        senderName: 'You',
-        senderAvatar: 'ME',
-        content: 'Love your content! Keep it up!',
-        isPaid: false,
-        isLocked: false,
-        hasMedia: false,
-        timestamp: '10:32 AM'
-      },
-      {
-        id: '3',
-        senderId: 'user1',
-        senderName: 'Sarah Johnson',
-        senderAvatar: 'SJ',
-        content: 'I have some exclusive content just for you! 🔥',
-        isPaid: true,
-        price: 10.00,
-        isLocked: true,
-        hasMedia: true,
-        mediaType: 'image',
-        timestamp: '10:35 AM'
-      },
-      {
-        id: '4',
-        senderId: 'user1',
-        senderName: 'Sarah Johnson',
-        senderAvatar: 'SJ',
-        content: 'Here\'s a preview of what I\'m working on today!',
-        isPaid: false,
-        isLocked: false,
-        hasMedia: true,
-        mediaType: 'image',
-        timestamp: '11:20 AM'
-      }
-    ],
-    '2': [
-      {
-        id: '5',
-        senderId: 'user2',
-        senderName: 'Mike Chen',
-        senderAvatar: 'MC',
-        content: 'Check out my new cooking video! 🍳',
-        isPaid: false,
-        isLocked: false,
-        hasMedia: false,
-        timestamp: '9:15 AM'
-      },
-      {
-        id: '6',
-        senderId: 'me',
-        senderName: 'You',
-        senderAvatar: 'ME',
-        content: 'Looks amazing! Can\'t wait to try it',
-        isPaid: false,
-        isLocked: false,
-        hasMedia: false,
-        timestamp: '9:20 AM'
-      }
-    ],
-    '3': [
-      {
-        id: '7',
-        senderId: 'user3',
-        senderName: 'Emma Davis',
-        senderAvatar: 'ED',
-        content: 'Exclusive photoshoot preview! ✨',
-        isPaid: true,
-        price: 15.00,
-        isLocked: true,
-        hasMedia: true,
-        mediaType: 'image',
-        timestamp: '8:45 AM'
-      },
-      {
-        id: '8',
-        senderId: 'me',
-        senderName: 'You',
-        senderAvatar: 'ME',
-        content: 'Interested! How do I unlock?',
-        isPaid: false,
-        isLocked: false,
-        hasMedia: false,
-        timestamp: '8:50 AM'
-      }
-    ]
-  }
-
-  const messages = selectedConversation ? (allMessages[selectedConversation] || []) : []
-  const selectedConv = conversations.find(c => c.id === selectedConversation)
+  const allMessages: Record<string, Message[]> = {}
+  const messages: Message[] = []
+  const selectedConv = null
 
   return (
     <DashboardLayout>
@@ -159,135 +56,20 @@ export default function Messages() {
                   />
                 </div>
               </div>
-              <div className="flex-1 overflow-y-auto">
-                {conversations.map((conv) => (
-                  <button
-                    key={conv.id}
-                    onClick={() => setSelectedConversation(conv.id)}
-                    className={`w-full p-4 flex items-center space-x-3 hover:bg-gray-50 transition ${
-                      selectedConversation === conv.id ? 'bg-pink-50 border-l-4 border-pink-600' : ''
-                    }`}
-                  >
-                    <div className="relative">
-                      <div className="w-12 h-12 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
-                        {conv.userAvatar}
-                      </div>
-                      {conv.unread > 0 && (
-                        <div className="absolute -top-1 -right-1 w-5 h-5 bg-pink-600 rounded-full flex items-center justify-center text-white text-xs font-bold">
-                          {conv.unread}
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex-1 text-left">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="font-semibold text-gray-900">{conv.userName}</span>
-                        <span className="text-xs text-gray-500">{conv.timestamp}</span>
-                      </div>
-                      <p className="text-sm text-gray-600 truncate">{conv.lastMessage}</p>
-                    </div>
-                  </button>
-                ))}
+              <div className="flex-1 overflow-y-auto flex items-center justify-center">
+                <div className="text-center p-8">
+                  <MessageCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                  <h3 className="text-lg font-semibold text-gray-900 mb-2">No conversations yet</h3>
+                  <p className="text-sm text-gray-500">Start messaging with creators or fans</p>
+                </div>
               </div>
             </div>
 
             {/* Message Thread */}
-            <div className="col-span-8 flex flex-col">
-              {/* Thread Header */}
-              <div className="p-4 border-b border-gray-200 flex items-center justify-between">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-br from-pink-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold">
-                    {selectedConv?.userAvatar}
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900">{selectedConv?.userName}</h3>
-                    <p className="text-sm text-gray-500">Active now</p>
-                  </div>
-                </div>
-                <button
-                  className="text-pink-600 hover:text-pink-700 font-medium text-sm"
-                >
-                  View Profile
-                </button>
-              </div>
-
-              {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-4 space-y-4">
-                {messages.map((message: Message) => (
-                  <MessageBubble key={message.id} message={message} />
-                ))}
-              </div>
-
-              {/* Message Composer */}
-              <div className="p-4 border-t border-gray-200">
-                {/* Paid Message Toggle (for creators) */}
-                <div className="mb-3 flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <button
-                      onClick={() => setIsPaidMessage(!isPaidMessage)}
-                      className={`flex items-center space-x-2 px-3 py-1.5 rounded-lg text-sm font-medium transition ${
-                        isPaidMessage
-                          ? 'bg-pink-100 text-pink-700 border border-pink-300'
-                          : 'bg-gray-100 text-gray-700 border border-gray-300'
-                      }`}
-                    >
-                      {isPaidMessage ? (
-                        <>
-                          <Lock className="h-4 w-4" />
-                          <span>Paid Message</span>
-                        </>
-                      ) : (
-                        <>
-                          <Unlock className="h-4 w-4" />
-                          <span>Free Message</span>
-                        </>
-                      )}
-                    </button>
-                    {isPaidMessage && (
-                      <div className="flex items-center space-x-2">
-                        <DollarSign className="h-4 w-4 text-gray-500" />
-                        <input
-                          type="number"
-                          value={messagePrice}
-                          onChange={(e) => setMessagePrice(e.target.value)}
-                          className="w-20 px-2 py-1 border border-gray-300 rounded text-sm focus:outline-none focus:ring-2 focus:ring-pink-500"
-                          step="0.50"
-                          min="0.50"
-                        />
-                      </div>
-                    )}
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <button className="p-2 text-gray-600 hover:text-pink-600 transition">
-                      <Image className="h-5 w-5" />
-                    </button>
-                    <button className="p-2 text-gray-600 hover:text-pink-600 transition">
-                      <Video className="h-5 w-5" />
-                    </button>
-                    <button className="p-2 text-gray-600 hover:text-pink-600 transition">
-                      <Paperclip className="h-5 w-5" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Message Input */}
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="text"
-                    value={messageText}
-                    onChange={(e) => setMessageText(e.target.value)}
-                    placeholder={isPaidMessage ? 'Type a paid message...' : 'Type a message...'}
-                    className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500"
-                  />
-                  <button className="bg-gradient-to-r from-pink-500 to-orange-500 text-white p-3 rounded-lg hover:shadow-lg transition">
-                    <Send className="h-5 w-5" />
-                  </button>
-                </div>
-                {isPaidMessage && (
-                  <p className="text-xs text-gray-500 mt-2">
-                    This message will be locked until the recipient pays £{messagePrice}
-                  </p>
-                )}
-              </div>
+            <div className="col-span-8 flex flex-col items-center justify-center bg-gray-50">
+              <MessageCircle className="h-20 w-20 text-gray-300 mb-4" />
+              <h3 className="text-xl font-semibold text-gray-900 mb-2">Select a conversation</h3>
+              <p className="text-gray-500">Choose a conversation from the left to start messaging</p>
             </div>
           </div>
         </div>
