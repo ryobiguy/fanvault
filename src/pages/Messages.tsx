@@ -1,42 +1,7 @@
-import { Search, Send, Image, Video, DollarSign, Lock, Unlock, Paperclip, MessageCircle } from 'lucide-react'
-import { useState } from 'react'
+import { Search, MessageCircle } from 'lucide-react'
 import DashboardLayout from '../components/DashboardLayout'
 
-interface Message {
-  id: string
-  senderId: string
-  senderName: string
-  senderAvatar: string
-  content: string
-  isPaid: boolean
-  price?: number
-  isLocked: boolean
-  hasMedia: boolean
-  mediaType?: 'image' | 'video'
-  timestamp: string
-}
-
-interface Conversation {
-  id: string
-  userId: string
-  userName: string
-  userAvatar: string
-  lastMessage: string
-  timestamp: string
-  unread: number
-  isCreator: boolean
-}
-
 export default function Messages() {
-  const [selectedConversation, setSelectedConversation] = useState<string | null>(null)
-  const [messageText, setMessageText] = useState('')
-  const [isPaidMessage, setIsPaidMessage] = useState(false)
-  const [messagePrice, setMessagePrice] = useState('5.00')
-
-  const conversations: Conversation[] = []
-  const allMessages: Record<string, Message[]> = {}
-  const messages: Message[] = []
-  const selectedConv = null
 
   return (
     <DashboardLayout>
@@ -75,63 +40,5 @@ export default function Messages() {
         </div>
       </div>
     </DashboardLayout>
-  )
-}
-
-interface MessageBubbleProps {
-  message: Message
-}
-
-function MessageBubble({ message }: MessageBubbleProps) {
-  const isMe = message.senderId === 'me'
-
-  return (
-    <div className={`flex ${isMe ? 'justify-end' : 'justify-start'}`}>
-      <div className={`max-w-md ${isMe ? 'order-2' : 'order-1'}`}>
-        {!isMe && (
-          <p className="text-xs text-gray-500 mb-1 ml-1">{message.senderName}</p>
-        )}
-        <div
-          className={`rounded-2xl px-4 py-3 ${
-            isMe
-              ? 'bg-gradient-to-r from-pink-500 to-orange-500 text-white'
-              : 'bg-gray-100 text-gray-900'
-          }`}
-        >
-          {message.isPaid && message.isLocked ? (
-            <div className="text-center py-4">
-              <Lock className="h-8 w-8 mx-auto mb-2 opacity-70" />
-              <p className="font-semibold mb-1">Locked Content</p>
-              <p className="text-sm opacity-90 mb-3">
-                {message.hasMedia && `${message.mediaType === 'image' ? 'Photo' : 'Video'} + Message`}
-              </p>
-              <button className="bg-white text-pink-600 px-4 py-2 rounded-lg font-semibold text-sm hover:bg-gray-50 transition">
-                Unlock for £{message.price?.toFixed(2)}
-              </button>
-            </div>
-          ) : (
-            <>
-              {message.hasMedia && !message.isLocked && (
-                <div className="mb-2 rounded-lg overflow-hidden bg-gradient-to-br from-pink-100 to-orange-100 aspect-video flex items-center justify-center">
-                  {message.mediaType === 'image' ? (
-                    <Image className="h-12 w-12 text-pink-600" />
-                  ) : (
-                    <Video className="h-12 w-12 text-purple-600" />
-                  )}
-                </div>
-              )}
-              <p>{message.content}</p>
-              {message.isPaid && !message.isLocked && (
-                <div className="flex items-center space-x-1 mt-2 text-xs opacity-75">
-                  <DollarSign className="h-3 w-3" />
-                  <span>Paid content</span>
-                </div>
-              )}
-            </>
-          )}
-        </div>
-        <p className="text-xs text-gray-500 mt-1 ml-1">{message.timestamp}</p>
-      </div>
-    </div>
   )
 }
