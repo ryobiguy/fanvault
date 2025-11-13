@@ -1,8 +1,10 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 import { body, validationResult } from 'express-validator';
 import pool from '../config/database.js';
+import { sendVerificationEmail } from '../services/emailService.js';
 
 const router = express.Router();
 
@@ -56,15 +58,19 @@ router.post('/register',
       // Hash password
       const passwordHash = await bcrypt.hash(password, 10);
 
+      // Generate verification token
+      const verificationToken = crypto.randomBytes(32).toString('hex');
+      const verificationTokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+
       // Start transaction
       const client = await pool.connect();
       try {
         await client.query('BEGIN');
 
-        // Create user
+        // Create user with verification token
         const userResult = await client.query(
-          'INSERT INTO users (email, password_hash, user_type) VALUES ($1, $2, $3) RETURNING id, email, user_type',
-          [email, passwordHash, userType]
+          'INSERT INTO users (email, password_hash, user_type, verification_token, verification_token_expires) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, user_type',
+          [email, passwordHash, userType, verificationToken, verificationTokenExpires]
         );
 
         const user = userResult.rows[0];
@@ -99,18 +105,24 @@ router.post('/register',
 
         await client.query('COMMIT');
 
-        // Generate token
+        // Send verification email (don't wait for it)
+        sendVerificationEmail(email, displayName, verificationToken).catch(err => {
+          console.error('Failed to send verification email:', err);
+        });
+
+        // Generate token (but user still needs to verify email)
         const token = generateToken(user.id);
 
         res.status(201).json({
-          message: 'User registered successfully',
+          message: 'User registered successfully. Please check your email to verify your account.',
           token,
           user: {
             id: user.id,
             email: user.email,
             userType: user.user_type,
             displayName,
-            username
+            username,
+            isVerified: false
           }
         });
       } catch (error) {
@@ -143,7 +155,7 @@ router.post('/login',
 
       // Get user
       const result = await pool.query(
-        `SELECT u.id, u.email, u.password_hash, u.user_type, u.is_active, 
+        `SELECT u.id, u.email, u.password_hash, u.user_type, u.is_active, u.is_verified,
                 p.display_name, p.username, p.avatar_url
          FROM users u
          LEFT JOIN profiles p ON u.id = p.user_id
@@ -159,6 +171,10 @@ router.post('/login',
 
       if (!user.is_active) {
         return res.status(403).json({ error: { message: 'Account is deactivated' } });
+      }
+
+      if (!user.is_verified) {
+        return res.status(403).json({ error: { message: 'Please verify your email before logging in. Check your inbox for the verification link.' } });
       }
 
       // Verify password
@@ -232,6 +248,41 @@ router.get('/me', async (req, res) => {
   } catch (error) {
     console.error('Get user error:', error);
     res.status(500).json({ error: { message: 'Failed to get user' } });
+  }
+});
+
+// Verify email
+router.get('/verify-email/:token', async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    // Find user with this token
+    const result = await pool.query(
+      'SELECT id, email, verification_token_expires FROM users WHERE verification_token = $1',
+      [token]
+    );
+
+    if (result.rows.length === 0) {
+      return res.status(400).json({ error: { message: 'Invalid verification token' } });
+    }
+
+    const user = result.rows[0];
+
+    // Check if token has expired
+    if (new Date() > new Date(user.verification_token_expires)) {
+      return res.status(400).json({ error: { message: 'Verification token has expired' } });
+    }
+
+    // Update user as verified
+    await pool.query(
+      'UPDATE users SET is_verified = true, verification_token = NULL, verification_token_expires = NULL WHERE id = $1',
+      [user.id]
+    );
+
+    res.json({ message: 'Email verified successfully!' });
+  } catch (error) {
+    console.error('Email verification error:', error);
+    res.status(500).json({ error: { message: 'Verification failed' } });
   }
 });
 

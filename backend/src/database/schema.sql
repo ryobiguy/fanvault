@@ -10,6 +10,8 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     user_type VARCHAR(20) NOT NULL CHECK (user_type IN ('creator', 'fan')),
     is_verified BOOLEAN DEFAULT FALSE,
+    verification_token VARCHAR(255),
+    verification_token_expires TIMESTAMP,
     is_active BOOLEAN DEFAULT TRUE,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
