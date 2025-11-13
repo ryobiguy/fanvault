@@ -18,6 +18,9 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
+// Trust proxy - required for Railway and other proxies
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(helmet());
 
