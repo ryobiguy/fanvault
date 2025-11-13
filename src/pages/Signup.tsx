@@ -45,8 +45,8 @@ export default function Signup() {
       return
     }
 
-    if (accountType === 'creator' && !username) {
-      setError('Username is required for creators')
+    if (!username) {
+      setError('Username is required')
       return
     }
 
@@ -220,26 +220,24 @@ export default function Signup() {
               </div>
             </div>
 
-            {/* Username (for creators) */}
-            {accountType === 'creator' && (
-              <div>
-                <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
-                  Username
-                </label>
-                <div className="relative">
-                  <span className="absolute left-3 top-3 text-gray-400">@</span>
-                  <input
-                    id="username"
-                    type="text"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    placeholder="username"
-                    required
-                    className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
-                  />
-                </div>
+            {/* Username */}
+            <div>
+              <label htmlFor="username" className="block text-sm font-medium text-gray-700 mb-2">
+                Username
+              </label>
+              <div className="relative">
+                <span className="absolute left-3 top-3 text-gray-400">@</span>
+                <input
+                  id="username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="username"
+                  required
+                  className="w-full pl-8 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-500 focus:border-transparent"
+                />
               </div>
-            )}
+            </div>
 
             {/* Password */}
             <div>
