@@ -1,46 +1,16 @@
-import pkg from 'nodemailer';
-const nodemailer = pkg;
+import sgMail from '@sendgrid/mail';
 
-// Create transporter
-// For development, we'll use a test account from Ethereal
-// For production, you'll need to configure with SendGrid, AWS SES, etc.
-let transporter;
-
-async function createTransporter() {
-  if (process.env.NODE_ENV === 'production' && process.env.SENDGRID_API_KEY) {
-    // Production: Use SendGrid
-    transporter = nodemailer.createTransport({
-      host: 'smtp.sendgrid.net',
-      port: 587,
-      auth: {
-        user: 'apikey',
-        pass: process.env.SENDGRID_API_KEY
-      }
-    });
-  } else {
-    // Development: Use Ethereal test account
-    const testAccount = await nodemailer.createTestAccount();
-    transporter = nodemailer.createTransporter({
-      host: 'smtp.ethereal.email',
-      port: 587,
-      secure: false,
-      auth: {
-        user: testAccount.user,
-        pass: testAccount.pass
-      }
-    });
-    console.log('📧 Using Ethereal test email account');
-  }
+// Initialize SendGrid
+if (process.env.SENDGRID_API_KEY) {
+  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+  console.log('📧 SendGrid initialized');
 }
-
-// Initialize transporter
-createTransporter();
 
 async function sendVerificationEmail(email, displayName, verificationToken) {
   const verificationUrl = `${process.env.FRONTEND_URL}/verify-email?token=${verificationToken}`;
   
   const mailOptions = {
-    from: process.env.EMAIL_FROM || '"DirectFans" <noreply@directfans.me>',
+    from: process.env.EMAIL_FROM || 'noreply@directfans.me',
     to: email,
     subject: 'Verify Your DirectFans Email',
     html: `
@@ -84,15 +54,9 @@ async function sendVerificationEmail(email, displayName, verificationToken) {
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    
-    // In development, log the preview URL
-    if (process.env.NODE_ENV !== 'production') {
-      console.log('📧 Verification email sent!');
-      console.log('Preview URL:', nodemailer.getTestMessageUrl(info));
-    }
-    
-    return { success: true, messageId: info.messageId };
+    await sgMail.send(mailOptions);
+    console.log('📧 Verification email sent to:', email);
+    return { success: true };
   } catch (error) {
     console.error('Error sending verification email:', error);
     throw new Error('Failed to send verification email');
