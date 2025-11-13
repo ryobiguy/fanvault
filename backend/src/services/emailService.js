@@ -1,4 +1,5 @@
-import nodemailer from 'nodemailer';
+import pkg from 'nodemailer';
+const nodemailer = pkg;
 
 // Create transporter
 // For development, we'll use a test account from Ethereal
