@@ -58,15 +58,20 @@ export default function Upload() {
 
       const mediaUrl = uploadData.secure_url as string
 
+      const payload: any = {
+        contentType,
+        caption,
+        isPaid,
+        mediaUrls: [mediaUrl],
+      }
+
+      if (isPaid) {
+        payload.price = parseFloat(price)
+      }
+
       await apiRequest('/content', {
         method: 'POST',
-        body: JSON.stringify({
-          contentType,
-          caption,
-          isPaid,
-          price: isPaid ? parseFloat(price) : null,
-          mediaUrls: [mediaUrl],
-        }),
+        body: JSON.stringify(payload),
       })
 
       setSuccess('Content uploaded successfully')
