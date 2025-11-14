@@ -96,8 +96,12 @@ export default function Signup() {
       console.log('Registration result:', result)
       console.log('Account type:', accountType)
 
-      // Redirect to signup success page to check email
-      window.location.href = '/signup-success'
+      // Redirect based on account type (no hard email verification gate for now)
+      if (accountType === 'creator') {
+        window.location.href = '/creator/subscription?new=true'
+      } else {
+        window.location.href = '/fan/dashboard?new=true'
+      }
     } catch (err: any) {
       setError(err.message || 'Failed to create account')
     } finally {

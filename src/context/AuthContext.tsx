@@ -18,34 +18,9 @@ interface AuthContextType {
   user: User | null
   login: (email: string, password: string) => Promise<boolean>
   logout: () => void
-  switchAccount: (accountType: 'creator' | 'fan') => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
-
-// Demo accounts
-const DEMO_ACCOUNTS = {
-  creator: {
-    id: 'creator-1',
-    name: 'Sarah Johnson',
-    email: 'sarah@directfans.com',
-    username: 'sarahjfit',
-    avatar: 'SJ',
-    type: 'creator' as const,
-    bio: 'Fitness coach & lifestyle creator 💪 Helping you achieve your fitness goals',
-    subscriptionPrice: 9.99,
-    subscribers: 1234,
-    earnings: 12450
-  },
-  fan: {
-    id: 'fan-1',
-    name: 'John Smith',
-    email: 'john@example.com',
-    username: 'johnsmith',
-    avatar: 'JS',
-    type: 'fan' as const
-  }
-}
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
@@ -77,16 +52,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setUser(loggedInUser)
       return true
     } catch (error) {
-      // Fallback to demo accounts for development
-      if (email === 'sarah@directfans.com' || email === 'creator') {
-        setUser(DEMO_ACCOUNTS.creator)
-        localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.creator))
-        return true
-      } else if (email === 'john@example.com' || email === 'fan') {
-        setUser(DEMO_ACCOUNTS.fan)
-        localStorage.setItem('directfans_user', JSON.stringify(DEMO_ACCOUNTS.fan))
-        return true
-      }
       return false
     }
   }
@@ -94,12 +59,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const logout = () => {
     authService.logout()
     setUser(null)
-  }
-
-  const switchAccount = (accountType: 'creator' | 'fan') => {
-    const account = DEMO_ACCOUNTS[accountType]
-    setUser(account)
-    localStorage.setItem('directfans_user', JSON.stringify(account))
   }
 
   if (loading) {
@@ -112,7 +71,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, switchAccount }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   )

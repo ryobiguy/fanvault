@@ -1,10 +1,8 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import crypto from 'crypto';
 import { body, validationResult } from 'express-validator';
 import pool from '../config/database.js';
-import { sendVerificationEmail } from '../services/emailService.js';
 
 const router = express.Router();
 
@@ -58,19 +56,15 @@ router.post('/register',
       // Hash password
       const passwordHash = await bcrypt.hash(password, 10);
 
-      // Generate verification token
-      const verificationToken = crypto.randomBytes(32).toString('hex');
-      const verificationTokenExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-
       // Start transaction
       const client = await pool.connect();
       try {
         await client.query('BEGIN');
 
-        // Create user with verification token
+        // Create user
         const userResult = await client.query(
-          'INSERT INTO users (email, password_hash, user_type, verification_token, verification_token_expires) VALUES ($1, $2, $3, $4, $5) RETURNING id, email, user_type',
-          [email, passwordHash, userType, verificationToken, verificationTokenExpires]
+          'INSERT INTO users (email, password_hash, user_type) VALUES ($1, $2, $3) RETURNING id, email, user_type',
+          [email, passwordHash, userType]
         );
 
         const user = userResult.rows[0];
@@ -105,24 +99,18 @@ router.post('/register',
 
         await client.query('COMMIT');
 
-        // Send verification email (don't wait for it)
-        sendVerificationEmail(email, displayName, verificationToken).catch(err => {
-          console.error('Failed to send verification email:', err);
-        });
-
-        // Generate token (but user still needs to verify email)
+        // Generate token
         const token = generateToken(user.id);
 
         res.status(201).json({
-          message: 'User registered successfully. Please check your email to verify your account.',
+          message: 'User registered successfully',
           token,
           user: {
             id: user.id,
             email: user.email,
             userType: user.user_type,
             displayName,
-            username,
-            isVerified: false
+            username
           }
         });
       } catch (error) {
@@ -155,7 +143,7 @@ router.post('/login',
 
       // Get user
       const result = await pool.query(
-        `SELECT u.id, u.email, u.password_hash, u.user_type, u.is_active, u.is_verified,
+        `SELECT u.id, u.email, u.password_hash, u.user_type, u.is_active,
                 p.display_name, p.username, p.avatar_url
          FROM users u
          LEFT JOIN profiles p ON u.id = p.user_id
@@ -171,10 +159,6 @@ router.post('/login',
 
       if (!user.is_active) {
         return res.status(403).json({ error: { message: 'Account is deactivated' } });
-      }
-
-      if (!user.is_verified) {
-        return res.status(403).json({ error: { message: 'Please verify your email before logging in. Check your inbox for the verification link.' } });
       }
 
       // Verify password
