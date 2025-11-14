@@ -63,7 +63,6 @@ router.get('/feed', authenticateToken, async (req, res) => {
               EXISTS(SELECT 1 FROM content_purchases WHERE fan_id = $1 AND content_id = cp.id) as is_purchased
        FROM content_posts cp
        JOIN profiles p ON cp.creator_id = p.user_id
-       WHERE cp.is_published = true
        ORDER BY cp.created_at DESC
        LIMIT $2 OFFSET $3`,
       [req.user.id, limit, offset]
