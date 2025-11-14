@@ -47,11 +47,13 @@ router.post('/', authenticateToken, requireCreator,
 );
 
 // Get content feed (for fans)
+// NOTE: For now, this returns all published content regardless of subscription,
+// and uses isLocked to indicate paywalled posts. We can re-introduce the
+// subscription filter once fan_subscriptions are fully wired into the UI.
 router.get('/feed', authenticateToken, async (req, res) => {
   try {
     const { limit = 20, offset = 0 } = req.query;
 
-    // Get content from creators the user is subscribed to
     const result = await pool.query(
       `SELECT cp.*, 
               p.display_name as creator_name, 
@@ -61,8 +63,7 @@ router.get('/feed', authenticateToken, async (req, res) => {
               EXISTS(SELECT 1 FROM content_purchases WHERE fan_id = $1 AND content_id = cp.id) as is_purchased
        FROM content_posts cp
        JOIN profiles p ON cp.creator_id = p.user_id
-       JOIN fan_subscriptions fs ON cp.creator_id = fs.creator_id
-       WHERE fs.fan_id = $1 AND fs.status = 'active' AND cp.is_published = true
+       WHERE cp.is_published = true
        ORDER BY cp.created_at DESC
        LIMIT $2 OFFSET $3`,
       [req.user.id, limit, offset]
